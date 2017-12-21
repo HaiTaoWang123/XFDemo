@@ -22,6 +22,7 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
     private SpeechSynthesizer mTts;
     private Context context;
     private int playPercent,bufferPercent;
+    private Toast mToast;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
             mTts.setParameter(SpeechConstant.VOLUME, "80");//设置音量，范围0~100
             mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD); //设置云端
         }
+
+        mToast = Toast.makeText(context,"",Toast.LENGTH_SHORT);
     }
 
     private SynthesizerListener synthesizerListener = new SynthesizerListener() {
@@ -103,6 +106,7 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
     }
 
     private void showToast(final String str) {
-        Toast.makeText(context,str,Toast.LENGTH_SHORT).show();
+        mToast.setText(str);
+        mToast.show();
     }
 }
