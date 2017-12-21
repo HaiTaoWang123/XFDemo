@@ -13,7 +13,8 @@
         android:gravity="top|left"
         android:maxEms="1"
         android:maxLines="5"
-        android:text="AAAAAAAAAA"
+        android:padding="5dp"
+        android:text="习近平新时代中国特色社会主义经济思想，是5年来推动我国经济发展实践的理论结晶，是中国特色社会主义政治经济学的最新成果，是党和国家十分宝贵的精神财富，必须长期坚持、不断丰富发展"
         android:textColor="#333333"
         android:textSize="18sp" />
 
@@ -29,28 +30,32 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/bt_start_speech"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_red_gray_press_selector"
                 android:gravity="center"
                 android:text="开始播报"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp" />
 
             <Button
+                android:id="@+id/bt_cancel_speech"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_red_gray_press_selector"
                 android:gravity="center"
@@ -67,13 +72,15 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/bt_stop_speech"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_red_gray_press_selector"
                 android:gravity="center"
@@ -82,13 +89,15 @@
                 android:textSize="18sp" />
 
             <Button
+                android:id="@+id/bt_continue_speech"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/btn_red_gray_press_selector"
                 android:gravity="center"
