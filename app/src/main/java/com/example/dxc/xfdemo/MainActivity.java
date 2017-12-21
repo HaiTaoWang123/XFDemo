@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
 public class MainActivity extends Activity implements View.OnClickListener{
 
-    private Button btSpeechRecognizer,btSpeechSynthesizer,btFaceRequest,btSpeakerVerifier;
+//    private Button btSpeechRecognizer,btSpeechSynthesizer,btFaceRequest,btSpeakerVerifier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,15 +15,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
 
 
-        btSpeechRecognizer = findViewById(R.id.bt_yysb) ;
-        btSpeechSynthesizer = findViewById(R.id.bt_yybb) ;
-        btFaceRequest = findViewById(R.id.bt_face) ;
-        btSpeakerVerifier = findViewById(R.id.bt_swsb) ;
+//        btSpeechRecognizer = findViewById(R.id.bt_yysb) ;
+//        btSpeechSynthesizer = findViewById(R.id.bt_yybb) ;
+//        btFaceRequest = findViewById(R.id.bt_face) ;
+//        btSpeakerVerifier = findViewById(R.id.bt_swsb) ;
 
-        btSpeechRecognizer.setOnClickListener(this);
-        btSpeechSynthesizer.setOnClickListener(this);
-        btFaceRequest.setOnClickListener(this);
-        btSpeakerVerifier.setOnClickListener(this);
+        findViewById(R.id.bt_yysb).setOnClickListener(this);
+        findViewById(R.id.bt_yybb).setOnClickListener(this);
+        findViewById(R.id.bt_face).setOnClickListener(this);
+        findViewById(R.id.bt_swsb).setOnClickListener(this);
     }
 
     @Override
