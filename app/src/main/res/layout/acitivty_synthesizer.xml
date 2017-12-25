@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical">
 
     <EditText
@@ -13,7 +14,7 @@
         android:gravity="top|left"
         android:maxEms="1"
         android:maxLines="5"
-        android:padding="5dp"
+        android:padding="10dp"
         android:text="习近平新时代中国特色社会主义经济思想，是5年来推动我国经济发展实践的理论结晶，是中国特色社会主义政治经济学的最新成果，是党和国家十分宝贵的精神财富，必须长期坚持、不断丰富发展"
         android:textColor="#333333"
         android:textSize="18sp" />
@@ -22,6 +23,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+
+        <ProgressBar
+            android:id="@+id/pb_synthesizer"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_horizontal"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_speak_progress"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="15dp"
+                android:text=""
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+            <TextView
+                android:id="@+id/tv_cash_progress"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"
+                android:layout_marginLeft="15dp"
+                android:text=""
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginRight="20dp"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
