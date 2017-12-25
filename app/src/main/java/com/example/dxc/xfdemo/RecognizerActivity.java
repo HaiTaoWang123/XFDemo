@@ -1,6 +1,5 @@
 package com.example.dxc.xfdemo;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dxc.xfdemo.Common.BaseActivity;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -24,7 +24,7 @@ import static android.content.ContentValues.TAG;
  * Created by wahaitao on 12/21/2017.
  */
 
-public class RecognizerActivity extends Activity implements View.OnClickListener {
+public class RecognizerActivity extends BaseActivity implements View.OnClickListener {
     private EditText etInputContent;
     private SpeechSynthesizer mTts;
     private Context context;
@@ -37,6 +37,8 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.acitivty_synthesizer);
+        setTitle("语音播报");
+        setSettingVisible(true,"");
         context = RecognizerActivity.this;
 
         etInputContent = (EditText) findViewById(R.id.et_content);
@@ -61,6 +63,13 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
 //        Toast.makeText(context,String.format("缓冲进度为%d%%，播放进度为%d%%"+bufferPercent,playPercent),Toast.LENGTH_SHORT).show();
 //        Toast.makeText(context,bufferPercent+"/"+playPercent+"",Toast.LENGTH_SHORT).show();
         mToast = Toast.makeText(context, "", Toast.LENGTH_SHORT);
+    }
+
+    @Override
+    public void onSettingClick() {
+        if (tvSetting.getText() != null){
+
+        }
     }
 
     private InitListener mTtsInitListener = new InitListener() {
@@ -88,8 +97,8 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
             bufferPercent = i;
             tvCashPro.setText("缓冲进度："+i+"%");
             progressBar.setSecondaryProgress(i);
-            showToast("缓冲进度为" + bufferPercent+",播放进度为"+playPercent);
-            Log.e("Toast", "缓冲进度为" + bufferPercent+",播放进度为"+playPercent);
+//            showToast("缓冲进度为" + bufferPercent+",播放进度为"+playPercent);
+//            Log.e("Toast", "缓冲进度为" + bufferPercent+",播放进度为"+playPercent);
 //            Toast.makeText(context,String.format("缓冲进度为%d%%，播放进度为%d%%"+bufferPercent,playPercent),Toast.LENGTH_SHORT).show();
         }
 
@@ -103,7 +112,7 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
         @Override
         public void onSpeakResumed() {
             showToast("继续播报");
-            Log.e("Toast", "继续播报");
+//            Log.e("Toast", "继续播报");
 //            Toast.makeText(context,"继续播报",Toast.LENGTH_SHORT).show();
         }
 
@@ -112,8 +121,8 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
             tvSpeakPro.setText("播报进度："+i+"%");
             progressBar.setProgress(i);
             playPercent = i;
-            showToast("缓冲进度为" + bufferPercent+",播放进度为"+playPercent);
-            Log.e("Toast", "缓冲进度为" + bufferPercent+",播放进度为"+playPercent);
+//            showToast("缓冲进度为" + bufferPercent+",播放进度为"+playPercent);
+//            Log.e("Toast", "缓冲进度为" + bufferPercent+",播放进度为"+playPercent);
             //            Toast.makeText(context,String.format("缓冲进度为%d%%，播放进度为%d%%"+bufferPercent,playPercent),Toast.LENGTH_SHORT).show();
         }
 
@@ -167,4 +176,6 @@ public class RecognizerActivity extends Activity implements View.OnClickListener
         mToast.setText(str);
         mToast.show();
     }
+
+
 }

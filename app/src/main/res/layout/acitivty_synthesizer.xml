@@ -5,12 +5,15 @@
     android:background="#FFFFFF"
     android:orientation="vertical">
 
+
     <EditText
         android:id="@+id/et_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
         android:layout_weight="1"
+        android:background="@drawable/edit_text_shape"
         android:gravity="top|left"
         android:maxEms="1"
         android:maxLines="5"
@@ -22,6 +25,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
 
@@ -30,42 +34,43 @@
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:max="100"
-            android:progressDrawable="@drawable/progress_horizontal"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp" />
+            android:layout_marginRight="20dp"
+            android:max="100"
+            android:progressDrawable="@drawable/progress_horizontal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/tv_speak_progress"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="18sp"
-                android:layout_gravity="center"
-                android:gravity="center"/>
+                android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/tv_cash_progress"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="40dp"
+                android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:text=""
                 android:textColor="#333333"
-                android:textSize="18sp"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:layout_marginRight="20dp"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
