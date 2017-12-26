@@ -3,6 +3,7 @@ package com.example.dxc.xfdemo;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -10,7 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dxc.xfdemo.Common.BaseActivity;
+import com.example.dxc.xfdemo.common.BaseActivity;
 import com.iflytek.cloud.ErrorCode;
 import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechConstant;
@@ -36,9 +37,9 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.acitivty_synthesizer);
+        setBaseContentLayout(R.layout.acitivty_synthesizer);
         setTitle("语音播报");
-        setSettingVisible(true,"");
+        setSettingVisible(true,"设置");
         context = RecognizerActivity.this;
 
         etInputContent = (EditText) findViewById(R.id.et_content);
@@ -68,7 +69,7 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onSettingClick() {
         if (tvSetting.getText() != null){
-
+            Toast.makeText(context,tvSetting.getText(),Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -177,5 +178,19 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
         mToast.show();
     }
 
+    private class SettingDialog extends AlertDialog{
 
+        protected SettingDialog(Context context) {
+            super(context);
+        }
+
+
+        protected SettingDialog(Context context, int theme) {
+            super(context, theme);
+        }
+
+        protected SettingDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+            super(context, cancelable, cancelListener);
+        }
+    }
 }
