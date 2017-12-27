@@ -42,7 +42,7 @@ public class LinkStack implements IStack {
     @Override
     public void push(Object x) throws Exception {
         Node p = new Node(x);//构造一个新结点
-        p.next = p;
+        p.next = top;
         top = p;//新结点成为当前的栈顶结点
     }
 
