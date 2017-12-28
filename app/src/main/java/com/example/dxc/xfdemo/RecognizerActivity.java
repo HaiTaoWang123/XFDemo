@@ -36,6 +36,11 @@ import static android.content.ContentValues.TAG;
  */
 
 public class RecognizerActivity extends BaseActivity implements View.OnClickListener {
+    public static final String Speaker = "speaker";
+    public static final String AudioStream = "audioStream";
+    public static final String SpeakerSpeed = "speakerSpeed";
+    public static final String SpeakerVolume = "speakerVolume";
+    public static final String SpeakerTone = "speakerTone";
     private EditText etInputContent;
     private SpeechSynthesizer mTts;
     private Context context;
@@ -43,11 +48,6 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
     private Toast mToast;
     private TextView tvCashPro, tvSpeakPro;
     private ProgressBar progressBar;
-    public static final String Speaker = "speaker";
-    public static final String AudioStream = "audioStream";
-    public static final String SpeakerSpeed = "speakerSpeed";
-    public static final String SpeakerVolume = "speakerVolume";
-    public static final String SpeakerTone = "speakerTone";
     private String speaker, audioStream, speakerSpeed, speakerVolume, speakerTone;
     private SettingDialog settingDialog;
 
