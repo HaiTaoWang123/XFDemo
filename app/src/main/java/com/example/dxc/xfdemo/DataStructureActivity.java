@@ -49,28 +49,30 @@ public class DataStructureActivity extends BaseActivity {
         fdgzg.setText(biTree.getFdgInRootTraverseString());
         dghg.setText(biTree.getDgPostRootTraverseString());
         fdghg.setText(biTree.getFdgPostRootTraverseString());
-        ccxl.setText(biTree.getLevelRootTraverseString());
+        ccxl.setText(biTree.getLevelRootTraverseString()
+                +"/结点数为："+biTree.countNode(root)
+                +"/叶结点数为："+biTree.countLeafNode(root));
     }
 
     public BiTree createBiTree(){
-        BiTreeNode d = new BiTreeNode('D');
-        BiTreeNode g = new BiTreeNode('G');
-        BiTreeNode h = new BiTreeNode('H');
-        BiTreeNode e = new BiTreeNode('E',g,null);
-        BiTreeNode b = new BiTreeNode('B',d,e);
-        BiTreeNode f = new BiTreeNode('F',null,h);
-        BiTreeNode c = new BiTreeNode('C',f,null);
-        BiTreeNode a = new BiTreeNode('A',b,c);
+//        BiTreeNode d = new BiTreeNode('D');
+//        BiTreeNode g = new BiTreeNode('G');
+//        BiTreeNode h = new BiTreeNode('H');
+//        BiTreeNode e = new BiTreeNode('E',g,null);
+//        BiTreeNode b = new BiTreeNode('B',d,e);
+//        BiTreeNode f = new BiTreeNode('F',null,h);
+//        BiTreeNode c = new BiTreeNode('C',f,null);
+//        BiTreeNode a = new BiTreeNode('A',b,c);
 
 
-//        BiTreeNode d = new BiTreeNode("D");
-//        BiTreeNode g = new BiTreeNode("G");
-//        BiTreeNode h = new BiTreeNode("H");
-//        BiTreeNode e = new BiTreeNode("E",g,null);
-//        BiTreeNode b = new BiTreeNode("B",d,e);
-//        BiTreeNode f = new BiTreeNode("F",null,h);
-//        BiTreeNode c = new BiTreeNode("C",f,null);
-//        BiTreeNode a = new BiTreeNode("A",b,c);
+        BiTreeNode d = new BiTreeNode("D");
+        BiTreeNode g = new BiTreeNode("G");
+        BiTreeNode h = new BiTreeNode("H");
+        BiTreeNode e = new BiTreeNode("E",g,null);
+        BiTreeNode b = new BiTreeNode("B",d,e);
+        BiTreeNode f = new BiTreeNode("F",null,h);
+        BiTreeNode c = new BiTreeNode("C",f,null);
+        BiTreeNode a = new BiTreeNode("A",b,c);
         return new BiTree(a);
     }
 

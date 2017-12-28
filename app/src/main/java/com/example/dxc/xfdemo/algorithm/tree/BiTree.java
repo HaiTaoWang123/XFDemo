@@ -50,9 +50,9 @@ public class BiTree {
         if (T != null) {
             System.out.print(T.data);//访问根结点
             dgPreRootTraverseList.add(T.data);
-//            if (T.data.getClass().equals(String.class)){
+            if (T.data.getClass().equals(String.class)){
                 dgPreRootTraverseString.append(T.data);
-//            }
+            }
             preRootTraverse(T.lchild);//先根遍历左子树
             preRootTraverse(T.rchild);//先根遍历右子树
         }
@@ -68,9 +68,9 @@ public class BiTree {
                 T = (BiTreeNode) S.pop();//移除栈顶结点，并返回其值
                 System.out.print(T.data);//访问结点
                 fdgPreRootTraverseList.add(T.data);
-//                if (T.data.getClass().equals(String.class)){
+                if (T.data.getClass().equals(String.class)){
                     fdgPreRootTraverseString.append(T.data);
-//                }
+                }
                 while (T != null) {
                     if (T.lchild != null) {//访问左孩子
                         System.out.print(T.lchild.data);//访问结点
@@ -91,9 +91,9 @@ public class BiTree {
         if (T != null) {
             inRootTraverse(T.lchild);//中根遍历左子树
             dgInRootTraverseList.add(T.data);
-//            if (T.data.getClass().equals(String.class)){
+            if (T.data.getClass().equals(String.class)){
                 dgInRootTraverseString.append(T.data);
-//            }
+            }
             System.out.print(T.data);//访问根结点
             inRootTraverse(T.rchild);//中根遍历右子树
         }
@@ -114,9 +114,9 @@ public class BiTree {
                     T = (BiTreeNode) S.pop();//移除栈顶结点，并返回其值
                     System.out.print(T.data);//访问结点
                     fdgInRootTraverseList.add(T.data);
-//                    if (T.data.getClass().equals(String.class)){
+                    if (T.data.getClass().equals(String.class)){
                         fdgInRootTraverseString.append(T.data);
-//                    }
+                    }
                     S.push(T.rchild);//结点的右孩子入栈
                 }
             }
@@ -130,9 +130,9 @@ public class BiTree {
             postRootTraverse(T.rchild);//后根遍历右子树
             System.out.print(T.data);//访问根结点
             dgPostRootTraverseList.add(T.data);
-//            if (T.data.getClass().equals(String.class)){
+            if (T.data.getClass().equals(String.class)){
                 dgPostRootTraverseString.append(T.data);
-//            }
+            }
         }
     }
 
@@ -153,9 +153,9 @@ public class BiTree {
                     if (T.rchild == null || T.rchild == p) {
                         System.out.print(T.data);//访问结点
                         fdgPostRootTraverseList.add(T.data);
-//                        if (T.data.getClass().equals(String.class)){
+                        if (T.data.getClass().equals(String.class)){
                             fdgPostRootTraverseString.append(T.data);
-//                        }
+                        }
                         S.pop();
                         p = T;
                         flag = true;
@@ -181,9 +181,9 @@ public class BiTree {
                 T = (BiTreeNode) L.poll();
                 System.out.print(T.data);//访问结点
                 levelRootTraverseList.add(T.data);
-//                if (T.data.getClass().equals(String.class)){
+                if (T.data.getClass().equals(String.class)){
                     levelRootTraverseString.append(T.data);
-//                }
+                }
                 if (T.lchild != null) {//左孩子非空，入队列
                     L.offer(T.lchild);
                 }
@@ -242,6 +242,21 @@ public class BiTree {
         return count;
     }
 
+    //统计二叉树中叶结点个数(先根遍历)
+    public int countLeafNode(BiTreeNode T){
+        int nodeCount = 0;
+        int notLeafNode = 0;
+        if (T != null){
+            ++nodeCount;
+//            ++notLeafNode;
+            nodeCount += countLeafNode(T.lchild);
+            nodeCount += countLeafNode(T.rchild);
+            if (T.lchild != null || T.rchild != null){
+                ++notLeafNode;//分支结点数
+            }
+        }
+        return nodeCount-notLeafNode;//结点数减去分支结点书即为叶节点数
+    }
     public BiTreeNode getRoot() {
         return root;
     }
