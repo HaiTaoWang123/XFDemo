@@ -55,7 +55,7 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setBaseContentLayout(R.layout.acitivty_synthesizer);
+        setBaseContentLayout(R.layout.activity_synthesizer);
         setTitle("语音播报");
         setSettingVisible(true, "设置");
         context = SynthesizerActivity.this;
