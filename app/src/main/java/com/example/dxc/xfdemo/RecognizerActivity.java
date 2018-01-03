@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -47,11 +48,12 @@ import static android.content.ContentValues.TAG;
  */
 
 public class RecognizerActivity extends BaseActivity implements View.OnClickListener {
-    public static final String Speaker = "speaker";
-    public static final String AudioStream = "audioStream";
-    public static final String SpeakerSpeed = "speakerSpeed";
-    public static final String SpeakerVolume = "speakerVolume";
-    public static final String SpeakerTone = "speakerTone";
+    public static final String recognizer = "recognizer";
+    public static final String FrontTime = "frontTime";
+    public static final String EndTime = "endTime";
+    public static final String isShowDialog = "showDialog";
+    public static final String isTranslation = "translation";
+    public static final String isShowSymbole = "symbole";
     private EditText tvResults;
     private SpeechRecognizer mSpeechRecognizer;
     private RecognizerDialog recognizerDialog;
@@ -59,13 +61,15 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
     private HashMap<String, String> mSpeechRecognizerResults = new LinkedHashMap<String, String>();
     private Context context;
     private boolean mTranslateEnable = false;//是否翻译
+    private boolean mReognizeDialogEnable = false;//是否显示录音dialog
+    private boolean mSymboleEnable = false;//是否显示标点符号
     // 引擎类型
     private String mEngineType = SpeechConstant.TYPE_CLOUD;
     private int playPercent, bufferPercent;
     private Toast mToast;
     private TextView tvCashPro, tvSpeakPro;
     private ProgressBar progressBar;
-    private String speaker, audioStream, speakerSpeed, speakerVolume, speakerTone;
+    private String recognizerName, frontTime, endTime;
     private SettingDialog settingDialog;
 
     @Override
@@ -81,8 +85,8 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
         if (mSpeechRecognizer == null) {
             mSpeechRecognizer = SpeechRecognizer.createRecognizer(context, mInitListener);
         }
-        // 初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
-        // 使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
+        //初始化听写Dialog，如果只使用有UI听写功能，无需创建SpeechRecognizer
+        //使用UI听写功能，请根据sdk文件目录下的notice.txt,放置布局文件和图片资源
         recognizerDialog = new RecognizerDialog(context, mInitListener);
 
         tvResults = (EditText) findViewById(R.id.et_content);
@@ -106,13 +110,14 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
             settingDialog = new SettingDialog(context, new SettingDialogListener() {
                 @Override
                 public void getSettingData(Map<String, Object> settingData) {
-                    int speakerId = Integer.parseInt(String.valueOf(settingData.get(Speaker)));
-                    speaker = getResources().getStringArray(R.array.voicer_cloud_values)[speakerId];
-                    audioStream = (String) settingData.get(AudioStream);
-                    speakerTone = (String) settingData.get(SpeakerTone);
-                    speakerVolume = (String) settingData.get(SpeakerVolume);
-                    speakerSpeed = (String) settingData.get(SpeakerSpeed);
-                    showToast("修改参数:" + speaker + "/" + speakerTone + "/" + speakerVolume + "/" + speakerSpeed + "/" + audioStream + "/");
+                    int recognizerId = Integer.parseInt(String.valueOf(settingData.get(recognizer)));
+                    recognizerName = getResources().getStringArray(R.array.language_values)[recognizerId];
+                    frontTime = (String) settingData.get(FrontTime);
+                    endTime = (String) settingData.get(EndTime);
+                    mReognizeDialogEnable = (boolean) settingData.get(isShowDialog);
+                    mReognizeDialogEnable = (boolean) settingData.get(isShowSymbole);
+                    mTranslateEnable = (boolean) settingData.get(isTranslation);
+                    showToast("修改参数:" + recognizerName + "/" + frontTime + "/" + endTime + "/" + mReognizeDialogEnable + "/" + mTranslateEnable + "/");
                 }
 
                 @Override
@@ -164,8 +169,7 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
             mSpeechRecognizer.setParameter(SpeechConstant.TRS_SRC, "its");
         }
 
-        String lag = "mandarin";
-        if (lag.equals("en_us")) {
+        if (recognizerName.equals("en_us")) {
             // 设置语言
             mSpeechRecognizer.setParameter(SpeechConstant.LANGUAGE, "en_us");
             mSpeechRecognizer.setParameter(SpeechConstant.ACCENT, null);
@@ -174,11 +178,11 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
                 mSpeechRecognizer.setParameter(SpeechConstant.ORI_LANG, "en");
                 mSpeechRecognizer.setParameter(SpeechConstant.TRANS_LANG, "cn");
             }
-        } else {
+        }else {
             // 设置语言
             mSpeechRecognizer.setParameter(SpeechConstant.LANGUAGE, "zh_cn");
             // 设置语言区域
-            mSpeechRecognizer.setParameter(SpeechConstant.ACCENT, lag);
+            mSpeechRecognizer.setParameter(SpeechConstant.ACCENT, recognizerName);
 
             if (mTranslateEnable) {
                 mSpeechRecognizer.setParameter(SpeechConstant.ORI_LANG, "cn");
@@ -187,13 +191,17 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
         }
 
         // 设置语音前端点:静音超时时间，即用户多长时间不说话则当做超时处理
-        mSpeechRecognizer.setParameter(SpeechConstant.VAD_BOS, "4000");
+        mSpeechRecognizer.setParameter(SpeechConstant.VAD_BOS, frontTime);
 
         // 设置语音后端点:后端点静音检测时间，即用户停止说话多长时间内即认为不再输入， 自动停止录音
-        mSpeechRecognizer.setParameter(SpeechConstant.VAD_EOS, "1000");
+        mSpeechRecognizer.setParameter(SpeechConstant.VAD_EOS, endTime);
 
         // 设置标点符号,设置为"0"返回结果无标点,设置为"1"返回结果有标点
-        mSpeechRecognizer.setParameter(SpeechConstant.ASR_PTT,  "1");
+        if(mSymboleEnable){
+            mSpeechRecognizer.setParameter(SpeechConstant.ASR_PTT,  "1");
+        }else {
+            mSpeechRecognizer.setParameter(SpeechConstant.ASR_PTT,  "0");
+        }
 
         // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
         // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
@@ -346,8 +354,9 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
     private class SettingDialog extends Dialog {
         Context dialogContext;
         Button btnConfirm, btnCancel;
-        Spinner speakerSpinner, audioStreamSpinner;
-        EditText tvSpeakerSpeed, tvSpeakerVolume, tvSpeakerTone;
+        Spinner recognizerSpinner;
+        EditText etFrontTime, etEndTime, tvSpeakerTone;
+        CheckBox cbSymbole,cbTranslation,cbDialog;
         SettingDialogListener listener = null;
 
         public SettingDialog(@NonNull Context context, SettingDialogListener listener) {
@@ -359,7 +368,7 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.dialog_synthesizer_setting);
+            setContentView(R.layout.dialog_recognizer_setting);
             Window dialogWindow = getWindow();
 //            final WindowManager.LayoutParams lp = dialogWindow.getAttributes();
 //            DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用
@@ -368,37 +377,24 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
             dialogWindow.setGravity(Gravity.CENTER);
 //            dialogWindow.setAttributes(lp);
 
-            speakerSpinner = (Spinner) findViewById(R.id.speaker_spinner);
-            audioStreamSpinner = (Spinner) findViewById(R.id.audio_stream_type);
-            speakerSpinner.setSelection(0, true);
-            audioStreamSpinner.setSelection(0, true);
-            tvSpeakerSpeed = (EditText) findViewById(R.id.speaker_speed);
-            tvSpeakerVolume = (EditText) findViewById(R.id.speaker_volume);
-            tvSpeakerTone = (EditText) findViewById(R.id.speaker_tone);
+            recognizerSpinner = (Spinner) findViewById(R.id.recognizer_spinner);
+            recognizerSpinner.setSelection(0, true);
+            etFrontTime = (EditText) findViewById(R.id.front_time);
+            etEndTime = (EditText) findViewById(R.id.end_time);
             btnConfirm = (Button) findViewById(R.id.bt_confirm);
             btnCancel = (Button) findViewById(R.id.bt_cancel);
+            cbSymbole = (CheckBox) findViewById(R.id.cb_symbole);
+            cbTranslation = (CheckBox) findViewById(R.id.cb_translation);
+            cbDialog = (CheckBox) findViewById(R.id.cb_dialog);
 
             String[] speakerData = getResources().getStringArray(R.array.speaker_spinnerarr);
-            speakerSpinner.setAdapter(new ArrayAdapter<String>(context, R.layout.spinner_item_layout, speakerData));
+            recognizerSpinner.setAdapter(new ArrayAdapter<String>(context, R.layout.spinner_item_layout, speakerData));
             String[] audioStreamData = getResources().getStringArray(R.array.audio_stream_type);
-            audioStreamSpinner.setAdapter(new ArrayAdapter<String>(context, R.layout.spinner_item_layout, audioStreamData));
 
-            speakerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            recognizerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    speakerSpinner.setSelection(position);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-
-            audioStreamSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    audioStreamSpinner.setSelection(position);
+                    recognizerSpinner.setSelection(position);
                 }
 
                 @Override
@@ -411,11 +407,12 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onClick(View v) {
                     Map<String, Object> settingData = new HashMap<>();
-                    settingData.put(Speaker, speakerSpinner.getSelectedItemId());
-                    settingData.put(AudioStream, audioStreamSpinner.getSelectedItem());
-                    settingData.put(SpeakerSpeed, tvSpeakerSpeed.getText().toString().trim());
-                    settingData.put(SpeakerVolume, tvSpeakerVolume.getText().toString().trim());
-                    settingData.put(SpeakerTone, tvSpeakerTone.getText().toString().trim());
+                    settingData.put(recognizer, recognizerSpinner.getSelectedItemId());
+                    settingData.put(FrontTime, etFrontTime.getText().toString().trim());
+                    settingData.put(EndTime, etEndTime.getText().toString().trim());
+                    settingData.put(isShowDialog, cbSymbole.isChecked());
+                    settingData.put(isTranslation, cbTranslation.isChecked());
+                    settingData.put(isShowSymbole, cbSymbole.isChecked());
                     listener.getSettingData(settingData);
                     listener.confirm();
                 }

@@ -2,19 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/edit_text_shape"
-    android:orientation="vertical"
     android:layout_gravity="center"
+    android:background="@drawable/edit_text_shape"
     android:gravity="center"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
     android:paddingLeft="20dp"
     android:paddingRight="10dp"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingTop="10dp">
 
@@ -29,13 +30,13 @@
 
         <Spinner
             android:id="@+id/recognizer_spinner"
+            style="@style/android:Theme.Holo.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:spinnerMode="dialog"
-            style="@style/android:Theme.Holo.Light"
             android:layout_gravity="center_vertical|left"
-            android:entries="@array/speaker_spinnerarr"
-            android:gravity="left|center_vertical" />
+            android:entries="@array/language_entries"
+            android:gravity="left|center_vertical"
+            android:spinnerMode="dialog" />
     </LinearLayout>
 
     <LinearLayout
@@ -55,15 +56,15 @@
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/speaker_speed"
-            android:layout_width="230dp"
-            android:padding="5dp"
-            android:background="@drawable/edit_text_shape"
+            android:id="@+id/front_time"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:background="@drawable/edit_text_shape"
             android:gravity="center_vertical|left"
-            android:singleLine="true"
             android:hint="短信转写5000，其他4000"
+            android:padding="5dp"
+            android:singleLine="true"
             android:textColor="#222222"
             android:textSize="18sp" />
     </LinearLayout>
@@ -80,20 +81,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
-            android:text="前端点超时："
+            android:text="后端点超时："
             android:textColor="#333333"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/speaker_tone"
-            android:layout_width="230dp"
-            android:padding="5dp"
-            android:singleLine="true"
-            android:background="@drawable/edit_text_shape"
+            android:id="@+id/end_time"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
+            android:background="@drawable/edit_text_shape"
             android:gravity="center_vertical|left"
             android:hint="短信转写1800，其他700"
+            android:padding="5dp"
+            android:singleLine="true"
             android:textColor="#222222"
             android:textSize="18sp" />
     </LinearLayout>
@@ -114,18 +115,13 @@
             android:textColor="#333333"
             android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/speaker_volume"
-            android:layout_width="100dp"
-            android:padding="5dp"
-            android:singleLine="true"
-            android:background="@drawable/edit_text_shape"
-            android:layout_height="match_parent"
+        <CheckBox
+            android:id="@+id/cb_symbole"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical|left"
-            android:hint="默认有标点"
-            android:textColor="#222222"
-            android:textSize="18sp" />
+            android:gravity="center_vertical|left" />
     </LinearLayout>
 
     <LinearLayout
@@ -140,28 +136,53 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
             android:gravity="center_vertical|left"
-            android:text="音频流类型："
+            android:text="显示听写界面："
             android:textColor="#333333"
             android:textSize="18sp" />
 
-        <Spinner
-            android:id="@+id/audio_stream_type"
-            style="@style/ThemeOverlay.AppCompat.Light"
+        <CheckBox
+            android:id="@+id/cb_dialog"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical|left" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
-            android:entries="@array/audio_stream_type"
-            android:spinnerMode="dialog" />
+            android:gravity="center_vertical|left"
+            android:text="翻译："
+            android:textColor="#333333"
+            android:textSize="18sp" />
+
+        <CheckBox
+            android:id="@+id/cb_translation"
+            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical|left" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/bt_confirm"
