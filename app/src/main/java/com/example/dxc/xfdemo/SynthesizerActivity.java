@@ -88,7 +88,7 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
     public void onSettingClick() {
         if (tvSetting.getText() != null) {
 //            Toast.makeText(context,tvSetting.getText(),Toast.LENGTH_SHORT).show();
-            settingDialog = new SettingDialog(context, new RecognizerActivity.SettingDialogListener() {
+            settingDialog = new SettingDialog(context, new SettingDialogListener() {
                 @Override
                 public void getSettingData(Map<String, Object> settingData) {
                     int speakerId = Integer.parseInt(String.valueOf(settingData.get(Speaker)));
@@ -265,9 +265,9 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
         Button btnConfirm, btnCancel;
         Spinner speakerSpinner, audioStreamSpinner;
         EditText tvSpeakerSpeed, tvSpeakerVolume, tvSpeakerTone;
-        RecognizerActivity.SettingDialogListener listener = null;
+        SettingDialogListener listener = null;
 
-        public SettingDialog(@NonNull Context context, RecognizerActivity.SettingDialogListener listener) {
+        public SettingDialog(@NonNull Context context, SettingDialogListener listener) {
             super(context);
             this.dialogContext = context;
             this.listener = listener;
@@ -276,7 +276,7 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.dialog_recognizer_setting);
+            setContentView(R.layout.dialog_synthesizer_setting);
             Window dialogWindow = getWindow();
 //            final WindowManager.LayoutParams lp = dialogWindow.getAttributes();
 //            DisplayMetrics d = context.getResources().getDisplayMetrics(); // 获取屏幕宽、高用

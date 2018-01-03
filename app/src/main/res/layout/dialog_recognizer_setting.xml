@@ -23,12 +23,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
             android:gravity="center_vertical|left"
-            android:text="发音人："
+            android:text="语言支持："
             android:textColor="#333333"
             android:textSize="18sp" />
 
         <Spinner
-            android:id="@+id/speaker_spinner"
+            android:id="@+id/recognizer_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:spinnerMode="dialog"
@@ -50,19 +50,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
-            android:text="语速："
+            android:text="前端点超时："
             android:textColor="#333333"
             android:textSize="18sp" />
 
         <EditText
             android:id="@+id/speaker_speed"
-            android:layout_width="100dp"
+            android:layout_width="230dp"
             android:padding="5dp"
             android:background="@drawable/edit_text_shape"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
-            android:hint="默认值50"
+            android:singleLine="true"
+            android:hint="短信转写5000，其他4000"
             android:textColor="#222222"
             android:textSize="18sp" />
     </LinearLayout>
@@ -79,19 +80,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
-            android:text="音调："
+            android:text="前端点超时："
             android:textColor="#333333"
             android:textSize="18sp" />
 
         <EditText
             android:id="@+id/speaker_tone"
-            android:layout_width="100dp"
+            android:layout_width="230dp"
             android:padding="5dp"
+            android:singleLine="true"
             android:background="@drawable/edit_text_shape"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
-            android:hint="默认值50"
+            android:hint="短信转写1800，其他700"
             android:textColor="#222222"
             android:textSize="18sp" />
     </LinearLayout>
@@ -108,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
-            android:text="音量："
+            android:text="标点符号："
             android:textColor="#333333"
             android:textSize="18sp" />
 
@@ -116,11 +118,12 @@
             android:id="@+id/speaker_volume"
             android:layout_width="100dp"
             android:padding="5dp"
+            android:singleLine="true"
             android:background="@drawable/edit_text_shape"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
-            android:hint="默认值50"
+            android:hint="默认有标点"
             android:textColor="#222222"
             android:textSize="18sp" />
     </LinearLayout>
