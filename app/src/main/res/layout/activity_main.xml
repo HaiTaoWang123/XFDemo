@@ -70,6 +70,19 @@
             android:text="数据结构"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/bt_scanner"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:visibility="visible"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_launcher_background"
+            android:gravity="center"
+            android:text="二维码扫描"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </RelativeLayout>

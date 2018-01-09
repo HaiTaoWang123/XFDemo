@@ -1,6 +1,7 @@
 package com.example.dxc.xfdemo.common;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,6 +21,7 @@ public abstract class BaseActivity extends Activity {
 
     protected TextView tvBack, tvSetting, tvTitle;
     protected FrameLayout base_content;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -84,4 +86,17 @@ public abstract class BaseActivity extends Activity {
     }
 
     public abstract void onSettingClick();
+
+    protected void showProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("请稍候...");
+        progressDialog.show();
+    }
+
+    protected void dismissProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+            progressDialog = null;
+        }
+    }
 }

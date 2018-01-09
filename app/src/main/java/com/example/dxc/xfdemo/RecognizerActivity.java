@@ -169,7 +169,7 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
             mSpeechRecognizer.setParameter(SpeechConstant.TRS_SRC, "its");
         }
 
-        if (recognizerName.equals("en_us")) {
+        if (recognizerName != null && recognizerName.equals("en_us")) {
             // 设置语言
             mSpeechRecognizer.setParameter(SpeechConstant.LANGUAGE, "en_us");
             mSpeechRecognizer.setParameter(SpeechConstant.ACCENT, null);
@@ -387,9 +387,8 @@ public class RecognizerActivity extends BaseActivity implements View.OnClickList
             cbTranslation = (CheckBox) findViewById(R.id.cb_translation);
             cbDialog = (CheckBox) findViewById(R.id.cb_dialog);
 
-            String[] speakerData = getResources().getStringArray(R.array.speaker_spinnerarr);
+            String[] speakerData = getResources().getStringArray(R.array.language_entries);
             recognizerSpinner.setAdapter(new ArrayAdapter<String>(context, R.layout.spinner_item_layout, speakerData));
-            String[] audioStreamData = getResources().getStringArray(R.array.audio_stream_type);
 
             recognizerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
