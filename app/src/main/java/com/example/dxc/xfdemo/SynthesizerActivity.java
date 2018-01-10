@@ -58,6 +58,8 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
         setBaseContentLayout(R.layout.activity_synthesizer);
         setTitle("语音播报");
         setSettingVisible(true, "设置");
+        setSettingClickable(true);
+
         context = SynthesizerActivity.this;
 
         etInputContent = (EditText) findViewById(R.id.et_content);
@@ -220,6 +222,7 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
             if (playPercent == 99) {
                 tvSpeakPro.setText("缓冲进度：" + 100 + "%");
             }
+            setSettingClickable(true);
         }
 
         @Override
@@ -237,6 +240,7 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
                 if (code != ErrorCode.SUCCESS) {
                     showToast("语音合成失败,错误码: " + code);
                 }
+                setSettingClickable(false);
                 break;
             case R.id.bt_stop_speech:
                 mTts.pauseSpeaking();
@@ -250,6 +254,7 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
                 progressBar.setSecondaryProgress(0);
                 tvSpeakPro.setText("缓冲进度：" + 0 + "%");
                 tvCashPro.setText("缓冲进度：" + 0 + "%");
+                setSettingClickable(true);
                 break;
             default:
         }
@@ -352,5 +357,14 @@ public class SynthesizerActivity  extends BaseActivity implements View.OnClickLi
         void confirm();
 
         void cancel();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if (mTts != null){
+        mTts.stopSpeaking();
+        mTts.destroy();
+        }
     }
 }

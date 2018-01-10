@@ -78,7 +78,11 @@ public abstract class BaseActivity extends Activity {
         }
     }
 
-    public void setBaseContentLayout(int layoutResId) {
+    protected void setSettingClickable(boolean isClickable) {
+        tvSetting.setClickable(isClickable);
+    }
+
+    protected void setBaseContentLayout(int layoutResId) {
         base_content.removeAllViews();
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflater.inflate(layoutResId, null);

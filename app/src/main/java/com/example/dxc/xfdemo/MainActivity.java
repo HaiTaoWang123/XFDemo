@@ -1,12 +1,15 @@
 package com.example.dxc.xfdemo;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
-public class MainActivity extends Activity implements View.OnClickListener{
-
+public class MainActivity extends Activity implements View.OnClickListener {
 //    private Button btSpeechRecognizer,btSpeechSynthesizer,btFaceRequest,btSpeakerVerifier;
 
     @Override
@@ -31,27 +34,37 @@ public class MainActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         Intent intent = null;
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.bt_yysb:
-                intent = new Intent(this,RecognizerActivity.class);
+                intent = new Intent(this, RecognizerActivity.class);
                 break;
             case R.id.bt_yybb:
-                intent = new Intent(this,SynthesizerActivity.class);
+                intent = new Intent(this, SynthesizerActivity.class);
                 break;
             case R.id.bt_face:
-                intent = new Intent(this,FaceRequestActivity.class);
+                intent = new Intent(this, FaceRequestActivity.class);
                 break;
             case R.id.bt_swsb:
-                intent = new Intent(this,SpeakerVerifierActivity.class);
+                intent = new Intent(this, SpeakerVerifierActivity.class);
                 break;
             case R.id.bt_datastructure:
-                intent = new Intent(this,DataStructureActivity.class);
+                intent = new Intent(this, DataStructureActivity.class);
                 break;
             case R.id.bt_scanner:
-                intent = new Intent(this,ScannerTestActivity.class);
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //权限还没有授予，需要在这里写申请权限的代码
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.CAMERA}, 60);
+                } else {
+                    intent = new Intent(this, ScannerTestActivity.class);
+                }
                 break;
-                default:
+            default:
         }
-        startActivity(intent);
+        if (intent != null) {
+            startActivity(intent);
+        }
     }
 }

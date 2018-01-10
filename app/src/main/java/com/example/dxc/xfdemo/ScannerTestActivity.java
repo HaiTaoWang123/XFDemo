@@ -20,6 +20,7 @@ import com.mylhyl.zxing.scanner.camera.open.CameraFacing;
 
 public class ScannerTestActivity extends BaseActivity {
     public static final String SCANNER_RESULT = "scannerResult";
+    public static final String RESULT_TYPE = "resultType";
     private ScannerView scannerView;
     private Result scannerResult;
 
@@ -28,7 +29,7 @@ public class ScannerTestActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setBaseContentLayout(R.layout.activity_barcode_scanner);
         setTitle("扫描测试");
-        setSettingVisible(false, "");
+        setSettingVisible(true, "二维码生成");
 
         scannerView = (ScannerView) findViewById(R.id.scannerView);
         ScannerSetting();
@@ -40,6 +41,7 @@ public class ScannerTestActivity extends BaseActivity {
                 final Intent intent = new Intent(ScannerTestActivity.this, ScannerResultActivity.class);
                 if (result != null && result.getText() != null) {
                     intent.putExtra(SCANNER_RESULT, result.getText());
+                    intent.putExtra(RESULT_TYPE, parsedResult.getType());
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -77,7 +79,8 @@ public class ScannerTestActivity extends BaseActivity {
 
     @Override
     public void onSettingClick() {
-
+        Intent intent = new Intent(this,EncodeActivity.class);
+        startActivity(intent);
     }
 
     @Override

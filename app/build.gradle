@@ -30,4 +30,6 @@ dependencies {
     compile files('libs/Msc.jar')
     compile files('libs/Sunflower.jar')
     compile project(':zxingscanner')
+    //另外一种添加方式
+    /*compile 'com.mylhyl:zxingscanner:2.1.0'*/
 }
