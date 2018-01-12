@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 
 import com.example.dxc.xfdemo.common.BaseActivity;
@@ -19,8 +18,6 @@ import com.mylhyl.zxing.scanner.camera.open.CameraFacing;
  */
 
 public class ScannerTestActivity extends BaseActivity {
-    public static final String SCANNER_RESULT = "scannerResult";
-    public static final String RESULT_TYPE = "resultType";
     private ScannerView scannerView;
     private Result scannerResult;
 
@@ -38,17 +35,9 @@ public class ScannerTestActivity extends BaseActivity {
             @Override
             public void onScannerCompletion(Result result, ParsedResult parsedResult, Bitmap bitmap) {
                 showProgressDialog();
-                final Intent intent = new Intent(ScannerTestActivity.this, ScannerResultActivity.class);
-                if (result != null && result.getText() != null) {
-                    intent.putExtra(SCANNER_RESULT, result.getText());
-                    intent.putExtra(RESULT_TYPE, parsedResult.getType());
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            startActivity(intent);
-                            dismissProgressDialog();
-                        }
-                    },500);
+                if (result != null && result.getText() != null && parsedResult.getType() != null) {
+                    ScannerResultActivity.gotoActivity(ScannerTestActivity.this,result.getText(),parsedResult.getType());
+                    dismissProgressDialog();
                 }
             }
         });

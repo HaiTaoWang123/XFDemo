@@ -62,4 +62,10 @@
         <item>cantonese</item>
         <item>en_us</item>
     </string-array>
+
+    <string-array name="wifi_type">
+        <item>WPA/WPA2</item>
+        <item>WEP</item>
+        <item>无加密</item>
+    </string-array>
 </resources>

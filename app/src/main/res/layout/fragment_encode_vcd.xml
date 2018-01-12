@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:gravity="left|center_vertical"
+                android:text="姓名："
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignBottom="@+id/tv_name"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_name"
+                android:background="@drawable/edit_text_shape"
+                android:gravity="center_vertical|left"
+                android:hint="请输入姓名"
+                android:inputType="text"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textColorHint="#999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginTop="10dp"
+                android:gravity="left|center_vertical"
+                android:text="号码："
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_tel"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignBottom="@+id/tv_tel"
+                android:layout_alignTop="@+id/tv_tel"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_tel"
+                android:background="@drawable/edit_text_shape"
+                android:gravity="center_vertical|left"
+                android:hint="请输入号码"
+                android:inputType="number"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textColorHint="#999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/tv_tel"
+                android:layout_marginTop="10dp"
+                android:gravity="left|center_vertical"
+                android:text="邮箱："
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_alignBottom="@+id/tv_email"
+                android:layout_alignTop="@+id/tv_email"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_email"
+                android:background="@drawable/edit_text_shape"
+                android:gravity="center_vertical|left"
+                android:hint="请输入电子邮箱地址"
+                android:inputType="textEmailAddress"
+                android:padding="3dp"
+                android:singleLine="true"
+                android:textColor="#333333"
+                android:textColorHint="#999999"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/tv_email"
+                android:layout_below="@+id/tv_email"
+                android:layout_marginTop="10dp"
+                android:gravity="left|center_vertical"
+                android:text="通讯 地址："
+                android:textColor="#333333"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignTop="@+id/tv_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/tv_content"
+                android:background="@drawable/edit_text_shape"
+                android:gravity="center_vertical|top|left"
+                android:hint="请输入内容"
+                android:lineSpacingExtra="5dp"
+                android:padding="3dp"
+                android:textColor="#333333"
+                android:textColorHint="#999999"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

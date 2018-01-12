@@ -1,10 +1,12 @@
 package com.example.dxc.xfdemo;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -22,6 +24,8 @@ import com.google.zxing.client.result.ParsedResultType;
  */
 
 public class ScannerResultActivity extends BaseActivity {
+    public static final String SCANNER_RESULT = "scannerResult";
+    public static final String RESULT_TYPE = "resultType";
     private TextView tvResult;
     private WebView webView;
 
@@ -35,8 +39,8 @@ public class ScannerResultActivity extends BaseActivity {
         webView = (WebView) findViewById(R.id.webView);
 
         Intent intent = getIntent();
-        String result = intent.getStringExtra(ScannerTestActivity.SCANNER_RESULT);
-        ParsedResultType type = (ParsedResultType) intent.getSerializableExtra(ScannerTestActivity.RESULT_TYPE);
+        String result = intent.getStringExtra(SCANNER_RESULT);
+        ParsedResultType type = (ParsedResultType) intent.getSerializableExtra(RESULT_TYPE);
         if (result != null && result != null) {
             handleResult(type, result);
 //            tvResult.setText(result);
@@ -160,5 +164,19 @@ public class ScannerResultActivity extends BaseActivity {
     @Override
     public void onSettingClick() {
         //TODO
+    }
+
+    public static void gotoActivity(final Activity activity, String resultText, ParsedResultType resultType){
+        final Intent intent = new Intent(activity, ScannerResultActivity.class);
+        if (resultText != null && resultType!= null) {
+            intent.putExtra(SCANNER_RESULT, resultText);
+            intent.putExtra(RESULT_TYPE, resultType);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    activity.startActivity(intent);
+                }
+            },500);
+        }
     }
 }
