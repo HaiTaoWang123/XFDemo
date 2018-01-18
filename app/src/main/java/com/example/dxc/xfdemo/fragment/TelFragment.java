@@ -38,7 +38,7 @@ public class TelFragment extends EncodeBaseFragment {
         etTel = (EditText) view.findViewById(R.id.et_tel);
     }
 
-    private void setEnable(){
+    private void setEnable() {
         if ((etTel != null && !etTel.getText().toString().equals(""))) {
             setClearButtonEnable(true);
             setEncodeButtonEnable(true);
@@ -54,7 +54,7 @@ public class TelFragment extends EncodeBaseFragment {
 
     @Override
     public void clearClickListener() {
-        if ((etTel != null && !etTel.getText().toString().equals(""))){
+        if ((etTel != null && !etTel.getText().toString().equals(""))) {
             etTel.setText("");
         }
     }
@@ -74,5 +74,13 @@ public class TelFragment extends EncodeBaseFragment {
                     .build().encodeAsBitmap();
             setEncodingResult(bitmap);
         }
+    }
+
+    @Override
+    public boolean isEmpty() {
+        if ((etTel != null && !etTel.getText().toString().equals(""))) {
+            return false;
+        }
+        return true;
     }
 }

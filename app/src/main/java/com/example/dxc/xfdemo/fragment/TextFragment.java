@@ -29,7 +29,6 @@ public class TextFragment extends EncodeBaseFragment {
         super.onCreate(savedInstanceState);
         setBaseContentView(R.layout.fragment_encode_text);
         initView(view);
-//        setEnable();
     }
 
     @Override
@@ -38,15 +37,15 @@ public class TextFragment extends EncodeBaseFragment {
         edText = (EditText) view.findViewById(R.id.et_text);
     }
 
-    private void setEnable(){
-        if (edText != null && !edText.getText().toString().equals("")) {
-            setClearButtonEnable(true);
-            setEncodeButtonEnable(true);
-        } else {
-            setClearButtonEnable(false);
-            setEncodeButtonEnable(false);
-        }
-    }
+//    private void setEnable(){
+//        if (edText != null && !edText.getText().toString().equals("")) {
+//            setClearButtonEnable(true);
+//            setEncodeButtonEnable(true);
+//        } else {
+//            setClearButtonEnable(false);
+//            setEncodeButtonEnable(false);
+//        }
+//    }
 
     public TextFragment(Context context) {
         this.context = context;
@@ -74,6 +73,14 @@ public class TextFragment extends EncodeBaseFragment {
                     .build().encodeAsBitmap();
             setEncodingResult(bitmap);
         }
+    }
+
+    @Override
+    public boolean isEmpty() {
+        if (edText != null && !edText.getText().toString().equals("")) {
+            return false;
+        }
+        return true;
     }
 
 }

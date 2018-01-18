@@ -43,7 +43,7 @@ public class SmsFragment extends EncodeBaseFragment {
         etContent = (EditText) view.findViewById(R.id.et_content);
     }
 
-    private void setEnable(){
+    private void setEnable() {
         if (etTel != null && !etTel.getText().toString().equals("")
                 && etContent != null && !etContent.getText().toString().equals("")) {
             setClearButtonEnable(true);
@@ -56,7 +56,7 @@ public class SmsFragment extends EncodeBaseFragment {
 
     @Override
     public void clearClickListener() {
-        if((etTel != null && !etTel.getText().toString().equals(""))
+        if ((etTel != null && !etTel.getText().toString().equals(""))
                 || (etContent != null && !etContent.getText().toString().equals(""))) {
             etTel.setText("");
             etContent.setText("");
@@ -74,10 +74,19 @@ public class SmsFragment extends EncodeBaseFragment {
                     //二维码类型
                     .setParsedResultType(ParsedResultType.SMS)
                     //二维码内容
-                    .setContents(etTel.getText().toString()+"\r\n"+etContent.getText().toString())
+                    .setContents(etTel.getText().toString() + "\r\n" + etContent.getText().toString())
                     .setSize(400)//二维码等比大小
                     .build().encodeAsBitmap();
             setEncodingResult(bitmap);
         }
+    }
+
+    @Override
+    public boolean isEmpty() {
+        if (etTel != null && !etTel.getText().toString().equals("")
+                && etContent != null && !etContent.getText().toString().equals("")) {
+            return false;
+        }
+        return true;
     }
 }

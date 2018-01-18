@@ -37,7 +37,7 @@ public class UrlFragment extends EncodeBaseFragment {
         etUrl = (EditText) view.findViewById(R.id.et_url);
     }
 
-    private void setEnable(){
+    private void setEnable() {
         if (etUrl != null && !etUrl.getText().toString().equals("")) {
             setClearButtonEnable(true);
             setEncodeButtonEnable(true);
@@ -73,5 +73,13 @@ public class UrlFragment extends EncodeBaseFragment {
                     .build().encodeAsBitmap();
             setEncodingResult(bitmap);
         }
+    }
+
+    @Override
+    public boolean isEmpty() {
+        if (etUrl != null && !etUrl.getText().toString().equals("")) {
+            return false;
+        }
+        return true;
     }
 }

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.dxc.xfdemo.R;
 import com.example.dxc.xfdemo.ScannerResultActivity;
@@ -41,6 +42,7 @@ public abstract class EncodeBaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_encode_base, null);
+        context = view.getContext();
         initViews();
     }
 
@@ -101,13 +103,19 @@ public abstract class EncodeBaseFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_clear:
-                    if (btClear.isEnabled()) {
+                    if (!isEmpty()) {
                         clearClickListener();
+                        Toast.makeText(context,"清空内容",Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(context,"内容为空",Toast.LENGTH_LONG).show();
                     }
                     break;
                 case R.id.bt_encoding:
-                    if (btEncoding.isEnabled()) {
+                    if (!isEmpty()) {
                         encodingClickListener();
+                        Toast.makeText(context,"生成二维码",Toast.LENGTH_LONG).show();
+                    }else {
+                        Toast.makeText(context,"请输入内容",Toast.LENGTH_LONG).show();
                     }
                     break;
                 case R.id.iv_encode_result:
@@ -124,6 +132,12 @@ public abstract class EncodeBaseFragment extends Fragment {
     public abstract void clearClickListener();
 
     public abstract void encodingClickListener();
+
+    /**
+     * 文本框是否为空，为空提醒用户，不为空生成二维码或者清空内容
+     * @return
+     */
+    public abstract boolean isEmpty();
 
     public void encodedImageClickListener() {
         Bitmap bitmap = null;

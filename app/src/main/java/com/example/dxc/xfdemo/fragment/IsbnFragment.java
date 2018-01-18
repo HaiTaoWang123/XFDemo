@@ -66,4 +66,12 @@ public class IsbnFragment extends EncodeBaseFragment {
             setEncodingResult(bitmap);
         }
     }
+
+    @Override
+    public boolean isEmpty() {
+        if (etIsbn != null && !etIsbn.getText().toString().equals("")) {
+            return false;
+        }
+        return true;
+    }
 }

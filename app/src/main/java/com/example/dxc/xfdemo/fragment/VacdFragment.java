@@ -86,4 +86,15 @@ public class VacdFragment extends EncodeBaseFragment {
             setEncodingResult(bitmap);
         }
     }
+
+    @Override
+    public boolean isEmpty() {
+        if (etName != null && !etName.getText().toString().equals("")
+                && etTel != null && !etTel.getText().toString().equals("")
+                && etAddress != null && !etAddress.getText().toString().equals("")
+                && etEmail != null && !etEmail.getText().toString().equals("")) {
+            return false;
+        }
+        return true;
+    }
 }

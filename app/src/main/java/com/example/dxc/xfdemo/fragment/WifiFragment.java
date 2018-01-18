@@ -84,4 +84,13 @@ public class WifiFragment extends EncodeBaseFragment {
             setEncodingResult(bitmap);
         }
     }
+
+    @Override
+    public boolean isEmpty() {
+        if (etName != null && !etName.getText().toString().equals("")
+                && etPassword != null && !etPassword.getText().toString().equals("")){
+            return false;
+        }
+        return true;
+    }
 }
