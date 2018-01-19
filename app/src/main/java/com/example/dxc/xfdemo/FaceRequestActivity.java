@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -26,6 +25,7 @@ import android.widget.Toast;
 import com.example.dxc.xfdemo.common.BaseActivity;
 import com.example.dxc.xfdemo.util.FaceUtil;
 import com.iflytek.cloud.ErrorCode;
+import com.iflytek.cloud.FaceRequest;
 import com.iflytek.cloud.IdentityListener;
 import com.iflytek.cloud.IdentityResult;
 import com.iflytek.cloud.IdentityVerifier;
@@ -51,14 +51,14 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
     private Bitmap mImage = null;
     private byte[] mImageData = null;
     // authid为6-18个字符长度，用于唯一标识用户
-    private String mAuthid = null;
+    private String mAuthid = "201404704077";
     private Toast mToast;
     // 进度对话框
     private ProgressDialog mProDialog;
     // 拍照得到的照片文件
     private File mPictureFile;
     // FaceRequest对象，集成了人脸识别的各种功能
-    //private FaceRequest mFaceRequest;
+    private FaceRequest mFaceRequest;
 
     //采用身份识别接口进行在线人脸识别
     private IdentityVerifier mIdVerifier;
@@ -67,6 +67,7 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
     private int mModelCmd;
     // 删除模型
     private final static int MODEL_DEL = 1;
+//    private byte[] faceData;
 
     public FaceRequestActivity() {
     }
@@ -77,6 +78,9 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
         setBaseContentLayout(R.layout.activity_facerequest);
         setTitle("人脸识别");
         setSettingVisible(false, "");
+
+        Intent intent = getIntent();
+        mImageData = intent.getByteArrayExtra("data");
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             //权限还没有授予，需要在这里写申请权限的代码
@@ -89,6 +93,11 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 60);
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            //权限还没有授予，需要在这里写申请权限的代码
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA}, 60);
+        }
 
         findViewById(R.id.online_pick).setOnClickListener(this);
         findViewById(R.id.online_reg).setOnClickListener(this);
@@ -98,7 +107,7 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
         findViewById(R.id.btn_identity).setOnClickListener(this);
 
         //由设备型号+6位随机码组成
-        mAuthid = Build.BRAND + "" + (int) ((Math.random() * 9 + 1) * 100000) + "";
+//        mAuthid = Build.BRAND + "" + (int) ((Math.random() * 9 + 1) * 100000) + "";
         mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
         mProDialog = new ProgressDialog(this);
         mProDialog.setCancelable(true);
@@ -127,12 +136,12 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
         });
 
         // 设置会话场景
-        mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
+//        mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
         // 设置会话类型
-        mIdVerifier.setParameter(SpeechConstant.MFV_SST, "enroll");
+//        mIdVerifier.setParameter(SpeechConstant.MFV_SST, "enroll");
         // 设置用户id
 //        mIdVerifier.setParameter(SpeechConstant.AUTH_ID, mAuthid);
-        // 设置监听器，开始会话
+//         设置监听器，开始会话
 //        mIdVerifier.startWorking(mEnrollListener);
 //        while (!isDataFinished) {
 //             写入数据，data为图片的二进制数据
@@ -155,6 +164,9 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
 
                 if (ErrorCode.SUCCESS == ret) {
                     showTip("注册成功");
+                    if (mProDialog.isShowing()) {
+                        mProDialog.dismiss();
+                    }
                 } else {
                     showTip(new SpeechError(ret).getPlainDescription(true));
                 }
@@ -192,6 +204,9 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
                     showTip("通过验证");
                 } else {
                     showTip("验证失败");
+                }
+                if (mProDialog.isShowing()) {
+                    mProDialog.dismiss();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -233,6 +248,9 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
                         showTip("删除成功");
                     } else {
                         showTip("删除失败");
+                    }
+                    if (mProDialog.isShowing()) {
+                        mProDialog.dismiss();
                     }
                     break;
                 default:
@@ -304,7 +322,7 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
                     // 设置会话场景
                     mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
                     // 设置会话类型
-                    mIdVerifier.setParameter(SpeechConstant.MFV_SST, "verify");
+                    mIdVerifier.setParameter(SpeechConstant.MFV_SST, "enroll");
                     // 设置验证模式，单一验证模式：sin
                     mIdVerifier.setParameter(SpeechConstant.MFV_VCM, "sin");
                     // 用户id

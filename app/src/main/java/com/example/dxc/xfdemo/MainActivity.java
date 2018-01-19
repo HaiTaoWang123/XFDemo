@@ -48,7 +48,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(this, SpeakerVerifierActivity.class);
                 break;
             case R.id.bt_datastructure:
-                intent = new Intent(this, DataStructureActivity.class);
+                intent = new Intent(this, FaceVerifierTestActivity.class);
                 break;
             case R.id.bt_scanner:
                 if (ContextCompat.checkSelfPermission(MainActivity.this,
