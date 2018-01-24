@@ -14,7 +14,8 @@
         android:layout_marginBottom="5dp"
         android:gravity="center_horizontal"
         android:text="在线人脸识别示例"
-        android:textSize="30sp" />
+        android:textSize="30sp"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,23 +35,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
-        android:visibility="gone"
         android:gravity="center_horizontal"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="visible">
 
         <EditText
             android:id="@+id/online_authid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_text_shape"
             android:digits="abcdefghijklmnopqrstuvwxyz0123456789_"
             android:hint="请输入 authid"
             android:maxLength="18"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:textColor="#333333"
             android:textSize="16sp">
 
-            <requestFocus />
         </EditText>
     </LinearLayout>
 
@@ -59,6 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -66,23 +72,32 @@
             android:id="@+id/online_pick"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@drawable/btn_red_gray_press_selector"
             android:text="选图"
+            android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/online_camera"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@drawable/btn_red_gray_press_selector"
             android:text="拍照"
+            android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
@@ -90,41 +105,61 @@
             android:id="@+id/online_reg"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@drawable/btn_red_gray_press_selector"
             android:text="注册"
+            android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/online_verify"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="1:1验证"
-            android:textSize="20sp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_modle_delete"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@drawable/btn_red_gray_press_selector"
             android:text="人脸模型删除"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_other_function"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/online_verify"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_red_gray_press_selector"
+            android:text="1:1验证"
+            android:textColor="#FFFFFF"
             android:textSize="20sp" />
 
         <Button
             android:id="@+id/btn_identity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_weight="1"
+            android:background="@drawable/btn_red_gray_press_selector"
             android:text="1:N验证"
+            android:textColor="#FFFFFF"
             android:textSize="20sp" />
     </LinearLayout>
 

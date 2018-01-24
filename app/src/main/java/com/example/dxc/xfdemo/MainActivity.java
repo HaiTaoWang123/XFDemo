@@ -42,13 +42,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(this, SynthesizerActivity.class);
                 break;
             case R.id.bt_face:
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    //权限还没有授予，需要在这里写申请权限的代码
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 60);
+                }
+
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    //权限还没有授予，需要在这里写申请权限的代码
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 60);
+                }
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //权限还没有授予，需要在这里写申请权限的代码
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.CAMERA}, 60);
+                }
                 intent = new Intent(this, FaceRequestActivity.class);
+                intent.putExtra(FaceRequestActivity.M_Type,1);
                 break;
             case R.id.bt_swsb:
                 intent = new Intent(this, SpeakerVerifierActivity.class);
                 break;
             case R.id.bt_datastructure:
-                intent = new Intent(this, FaceVerifierTestActivity.class);
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.CAMERA)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    //权限还没有授予，需要在这里写申请权限的代码
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.CAMERA}, 60);
+                } else {
+                    intent = new Intent(this, FaceRequestActivity.class);
+                }
                 break;
             case R.id.bt_scanner:
                 if (ContextCompat.checkSelfPermission(MainActivity.this,

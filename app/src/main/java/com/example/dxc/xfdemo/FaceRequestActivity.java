@@ -1,9 +1,11 @@
 package com.example.dxc.xfdemo;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -19,7 +21,9 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.dxc.xfdemo.common.BaseActivity;
@@ -47,11 +51,14 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
     private final String TAG = "OnlineFaceDemo";
     private final int REQUEST_PICTURE_CHOOSE = 1;
     private final int REQUEST_CAMERA_IMAGE = 2;
+    public static final String UserId = "userId";
+    public static final String M_Type = "mType";
+    private int mType = 1;//0-登录方式中的人脸注册；1-人脸识别功能
 
     private Bitmap mImage = null;
     private byte[] mImageData = null;
     // authid为6-18个字符长度，用于唯一标识用户
-    private String mAuthid = "201404704077";
+    private String mAuthid = "";
     private Toast mToast;
     // 进度对话框
     private ProgressDialog mProDialog;
@@ -68,9 +75,8 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
     // 删除模型
     private final static int MODEL_DEL = 1;
 //    private byte[] faceData;
-
-    public FaceRequestActivity() {
-    }
+    private EditText etUserId;
+    private LinearLayout llOtherFunction;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,26 +84,9 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
         setBaseContentLayout(R.layout.activity_facerequest);
         setTitle("人脸识别");
         setSettingVisible(false, "");
-
+        setBackVisible(false,"");
         Intent intent = getIntent();
-        mImageData = intent.getByteArrayExtra("data");
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //权限还没有授予，需要在这里写申请权限的代码
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 60);
-        }
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            //权限还没有授予，需要在这里写申请权限的代码
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 60);
-        }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            //权限还没有授予，需要在这里写申请权限的代码
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA}, 60);
-        }
+        mType = intent.getIntExtra(M_Type,1);
 
         findViewById(R.id.online_pick).setOnClickListener(this);
         findViewById(R.id.online_reg).setOnClickListener(this);
@@ -105,6 +94,13 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
         findViewById(R.id.online_camera).setOnClickListener(this);
         findViewById(R.id.btn_modle_delete).setOnClickListener(this);
         findViewById(R.id.btn_identity).setOnClickListener(this);
+        etUserId = (EditText) findViewById(R.id.online_authid);
+        llOtherFunction = (LinearLayout) findViewById(R.id.ll_other_function);
+        if (mType == 0){
+            llOtherFunction.setVisibility(View.GONE);
+        }else {
+            llOtherFunction.setVisibility(View.VISIBLE);
+        }
 
         //由设备型号+6位随机码组成
 //        mAuthid = Build.BRAND + "" + (int) ((Math.random() * 9 + 1) * 100000) + "";
@@ -167,6 +163,17 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
                     if (mProDialog.isShowing()) {
                         mProDialog.dismiss();
                     }
+
+                    if (mType == 0){//若是初次注册人脸，注册成功后保存用户Id并进行人脸验证
+                        SharedPreferences sharedPreferences = getSharedPreferences(SplashActivity.sp_Name, Activity.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString(UserId,mAuthid);
+                        editor.commit();
+                        Intent intent = new Intent(FaceRequestActivity.this,FaceVerifierTestActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 } else {
                     showTip(new SpeechError(ret).getPlainDescription(true));
                 }
@@ -298,17 +305,23 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int ret = ErrorCode.SUCCESS;
-
+        mAuthid = etUserId.getText().toString().trim();
         switch (v.getId()) {
             case R.id.online_pick:
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(intent, REQUEST_PICTURE_CHOOSE);
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    //权限还没有授予，需要在这里写申请权限的代码
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 60);
+                }else {
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_PICK);
+                    startActivityForResult(intent, REQUEST_PICTURE_CHOOSE);
+                }
                 break;
             case R.id.online_reg:
                 if (TextUtils.isEmpty(mAuthid)) {
-                    showTip("authid不能为空");
+                    showTip("Authid不能为空");
                     return;
                 }
 
@@ -341,6 +354,14 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
                 }
                 break;
             case R.id.online_camera:
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                        || ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                    //权限还没有授予，需要在这里写申请权限的代码
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 60);
+                    ActivityCompat.requestPermissions(this,
+                            new String[]{Manifest.permission.CAMERA}, 60);
+                }
                 // 设置相机拍照后照片保存路径
                 mPictureFile = new File(Environment.getExternalStorageDirectory(),
                         "picture" + System.currentTimeMillis() / 1000 + ".jpg");
@@ -353,7 +374,7 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.online_verify:
                 if (TextUtils.isEmpty(mAuthid)) {
-                    showTip("authid不能为空");
+                    showTip("Authid不能为空");
                     return;
                 }
 
@@ -388,6 +409,14 @@ public class FaceRequestActivity extends BaseActivity implements View.OnClickLis
                 // 人脸模型删除
                 mModelCmd = MODEL_DEL;
                 executeModelCommand("delete");
+                break;
+            case R.id.btn_identity:
+                if (mImageData != null) {
+                    ImageView ivImg = (ImageView) findViewById(R.id.online_img);
+                    if (mImageData != null) {
+                        ivImg.setImageBitmap(BitmapFactory.decodeByteArray(mImageData, 0, mImageData.length));
+                    }
+                }
                 break;
             default:
                 break;

@@ -10,6 +10,7 @@
         android:background="#110859">
 
         <LinearLayout
+            android:id="@+id/ll_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">

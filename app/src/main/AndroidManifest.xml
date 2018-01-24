@@ -29,13 +29,19 @@
         android:icon="@mipmap/ic_launcher"
         android:label="讯飞Demo"
         android:screenOrientation="portrait">
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden" />
 
         <activity
             android:name="com.example.dxc.xfdemo.FaceRequestActivity"
@@ -88,6 +94,20 @@
         <activity
             android:name="com.example.dxc.xfdemo.EncodeActivity"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboard|keyboardHidden|navigation"
+            android:windowSoftInputMode="adjustPan|stateVisible"/>
+
+        <activity
+            android:name="com.example.dxc.xfdemo.SelectLoginStyleActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|keyboard|keyboardHidden|navigation"/>
+
+        <activity
+            android:name="com.example.dxc.xfdemo.LoginActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboard|keyboardHidden|navigation"
             android:windowSoftInputMode="adjustPan|stateVisible"/>

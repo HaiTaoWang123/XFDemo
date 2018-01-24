@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dxc.xfdemo.R;
@@ -20,6 +21,7 @@ import com.example.dxc.xfdemo.R;
 public abstract class BaseActivity extends Activity {
 
     protected TextView tvBack, tvSetting, tvTitle;
+    protected LinearLayout llBack;
     protected FrameLayout base_content;
     private ProgressDialog progressDialog;
 
@@ -33,9 +35,10 @@ public abstract class BaseActivity extends Activity {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvSetting = (TextView) findViewById(R.id.tv_setting);
         base_content = (FrameLayout) findViewById(R.id.base_content);
+        llBack = (LinearLayout) findViewById(R.id.ll_back);
 
         if (tvBack != null) {
-            tvBack.setOnClickListener(clickListener);
+            llBack.setOnClickListener(clickListener);
         }
         if (tvSetting != null) {
             tvSetting.setOnClickListener(clickListener);
@@ -52,7 +55,7 @@ public abstract class BaseActivity extends Activity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.tv_back:
+                case R.id.ll_back:
                     onBackPressed();
                     break;
                 case R.id.tv_setting:
@@ -75,6 +78,21 @@ public abstract class BaseActivity extends Activity {
             tvSetting.setText(settingText);
         } else {
             tvSetting.setText("设置");
+        }
+    }
+
+    protected void setBackVisible(boolean isVisible, String backText) {
+        if (isVisible) {
+            llBack.setVisibility(View.VISIBLE);
+        } else {
+            llBack.setVisibility(View.GONE);
+            tvBack.setText("");
+        }
+
+        if (backText != null) {
+            tvSetting.setText(backText);
+        } else {
+            tvSetting.setText("返回");
         }
     }
 
