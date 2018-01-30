@@ -93,8 +93,8 @@ public class VacdFragment extends EncodeBaseFragment {
                 && etTel != null && !etTel.getText().toString().equals("")
                 && etAddress != null && !etAddress.getText().toString().equals("")
                 && etEmail != null && !etEmail.getText().toString().equals("")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

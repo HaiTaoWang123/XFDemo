@@ -16,7 +16,7 @@ import android.widget.ImageView;
 
 import com.example.dxc.xfdemo.R;
 import com.example.dxc.xfdemo.util.CameraInterface;
-import com.example.dxc.xfdemo.util.Util;
+import com.example.dxc.xfdemo.util.ScreenUtil;
 
 @SuppressLint("AppCompatCustomView")
 public class FaceView extends ImageView {
@@ -59,7 +59,7 @@ public class FaceView extends ImageView {
 		}else if(Id == CameraInfo.CAMERA_FACING_FRONT){
 			isMirror = true;  //ǰ��Camera��Ҫmirror
 		}
-		Util.prepareMatrix(mMatrix, isMirror, 90, getWidth(), getHeight());
+		ScreenUtil.prepareMatrix(mMatrix, isMirror, 90, getWidth(), getHeight());
 		canvas.save();
 		mMatrix.postRotate(0); //Matrix.postRotateĬ����˳ʱ��
 		canvas.rotate(-0);   //Canvas.rotate()Ĭ������ʱ�� 

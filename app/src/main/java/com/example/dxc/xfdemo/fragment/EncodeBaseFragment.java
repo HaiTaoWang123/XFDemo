@@ -103,7 +103,7 @@ public abstract class EncodeBaseFragment extends Fragment {
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.bt_clear:
-                    if (!isEmpty()) {
+                    if (isEmpty()) {
                         clearClickListener();
                         Toast.makeText(context,"清空内容",Toast.LENGTH_LONG).show();
                     }else {
@@ -111,7 +111,7 @@ public abstract class EncodeBaseFragment extends Fragment {
                     }
                     break;
                 case R.id.bt_encoding:
-                    if (!isEmpty()) {
+                    if (isEmpty()) {
                         encodingClickListener();
                         Toast.makeText(context,"生成二维码",Toast.LENGTH_LONG).show();
                     }else {

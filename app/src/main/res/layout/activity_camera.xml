@@ -20,6 +20,7 @@
 
         <ImageButton
             android:id="@+id/btn_switch"
+            android:visibility="gone"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_alignParentRight="true"

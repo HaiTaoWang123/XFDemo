@@ -79,8 +79,8 @@ public class TelFragment extends EncodeBaseFragment {
     @Override
     public boolean isEmpty() {
         if ((etTel != null && !etTel.getText().toString().equals(""))) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

@@ -78,9 +78,9 @@ public class TextFragment extends EncodeBaseFragment {
     @Override
     public boolean isEmpty() {
         if (edText != null && !edText.getText().toString().equals("")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
 }

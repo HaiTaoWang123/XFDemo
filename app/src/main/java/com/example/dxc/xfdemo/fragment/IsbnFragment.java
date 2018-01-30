@@ -70,8 +70,8 @@ public class IsbnFragment extends EncodeBaseFragment {
     @Override
     public boolean isEmpty() {
         if (etIsbn != null && !etIsbn.getText().toString().equals("")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

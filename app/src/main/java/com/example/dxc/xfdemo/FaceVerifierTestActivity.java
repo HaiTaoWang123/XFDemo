@@ -1,5 +1,6 @@
 package com.example.dxc.xfdemo;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 import com.example.dxc.xfdemo.util.CameraInterface;
 import com.example.dxc.xfdemo.util.EventUtil;
 import com.example.dxc.xfdemo.util.GoogleFaceDetect;
-import com.example.dxc.xfdemo.util.Util;
+import com.example.dxc.xfdemo.util.ScreenUtil;
 import com.example.dxc.xfdemo.widget.CameraSurfaceView;
 import com.example.dxc.xfdemo.widget.FaceView;
 import com.iflytek.cloud.ErrorCode;
@@ -67,9 +68,9 @@ public class FaceVerifierTestActivity extends Activity {
         setContentView(R.layout.activity_camera);
         context = FaceVerifierTestActivity.this;
         mProDialog = new ProgressDialog(this);
-        mToast = Toast.makeText(this,"",Toast.LENGTH_SHORT);
+        mToast = Toast.makeText(this, "", Toast.LENGTH_SHORT);
 
-        previewRate = Util.getScreenRate(this); //默认全屏的比例预览
+        previewRate = ScreenUtil.getScreenRate(this); //默认全屏的比例预览
         mMainHandler = new MainHandler();
         mMainHandler.sendEmptyMessageDelayed(EventUtil.CAMERA_HAS_STARTED_PREVIEW, 1500);
         googleFaceDetect = new GoogleFaceDetect(getApplicationContext(), mMainHandler);
@@ -99,6 +100,7 @@ public class FaceVerifierTestActivity extends Activity {
         startGoogleFaceDetect();
     }
 
+    @SuppressLint("HandlerLeak")
     private class MainHandler extends Handler {
 
         @Override
@@ -163,7 +165,7 @@ public class FaceVerifierTestActivity extends Activity {
         }
     }
 
-    private void verifyFace(byte[] mImageData){
+    private void verifyFace(byte[] mImageData) {
         if (null != mImageData) {
             mProDialog.setMessage("验证中...");
             mProDialog.show();
@@ -172,15 +174,16 @@ public class FaceVerifierTestActivity extends Activity {
             //采用身份识别接口进行在线人脸识别
             //初始化人脸识别引擎
             IdentityVerifier mIdVerifier = IdentityVerifier.createVerifier(this, new InitListener() {
-                        @Override
-                        public void onInit(int errorCode) {
-                            if (ErrorCode.SUCCESS == errorCode) {
+                @Override
+                public void onInit(int errorCode) {
+                    if (ErrorCode.SUCCESS == errorCode) {
 //                                ("引擎初始化成功");
-                            } else {
-                                showTip("引擎初始化失败，错误码：" + errorCode);
-                            }
-                        }
-                    });;
+                    } else {
+                        showTip("引擎初始化失败，错误码：" + errorCode);
+                    }
+                }
+            });
+            ;
             mIdVerifier.setParameter(SpeechConstant.PARAMS, null);
             // 设置会话场景
             mIdVerifier.setParameter(SpeechConstant.MFV_SCENES, "ifr");
@@ -189,8 +192,8 @@ public class FaceVerifierTestActivity extends Activity {
             // 设置验证模式，单一验证模式：sin
             mIdVerifier.setParameter(SpeechConstant.MFV_VCM, "sin");
             // 用户id
-            SharedPreferences sharedPreferences = getSharedPreferences(SplashActivity.sp_Name,Activity.MODE_PRIVATE);
-            mIdVerifier.setParameter(SpeechConstant.AUTH_ID, sharedPreferences.getString(FaceRequestActivity.UserId,""));
+            SharedPreferences sharedPreferences = getSharedPreferences(SplashActivity.sp_Name, Activity.MODE_PRIVATE);
+            mIdVerifier.setParameter(SpeechConstant.AUTH_ID, sharedPreferences.getString(FaceRequestActivity.UserId, ""));
             // 设置监听器，开始会话
             mIdVerifier.startWorking(mVerifyListener);
 
@@ -218,7 +221,7 @@ public class FaceVerifierTestActivity extends Activity {
 
                 if ("accepted".equalsIgnoreCase(decision)) {
                     showTip("通过验证");
-                    Intent intent = new Intent(context,MainActivity.class);
+                    Intent intent = new Intent(context, MainActivity.class);
                     startActivity(intent);
                     stopGoogleFaceDetect();
                     finish();
@@ -237,6 +240,9 @@ public class FaceVerifierTestActivity extends Activity {
         @Override
         public void onError(SpeechError speechError) {
             showTip(speechError.getPlainDescription(true));
+            if (mProDialog.isShowing()) {
+                mProDialog.dismiss();
+            }
         }
 
         @Override
@@ -245,7 +251,7 @@ public class FaceVerifierTestActivity extends Activity {
         }
     };
 
-    private void showTip(final String str){
+    private void showTip(final String str) {
         mToast.setText(str);
         mToast.show();
     }

@@ -85,8 +85,8 @@ public class SmsFragment extends EncodeBaseFragment {
     public boolean isEmpty() {
         if (etTel != null && !etTel.getText().toString().equals("")
                 && etContent != null && !etContent.getText().toString().equals("")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

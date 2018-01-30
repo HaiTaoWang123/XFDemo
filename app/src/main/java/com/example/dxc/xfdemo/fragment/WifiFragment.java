@@ -89,8 +89,8 @@ public class WifiFragment extends EncodeBaseFragment {
     public boolean isEmpty() {
         if (etName != null && !etName.getText().toString().equals("")
                 && etPassword != null && !etPassword.getText().toString().equals("")){
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

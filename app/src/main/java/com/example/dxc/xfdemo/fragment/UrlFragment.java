@@ -78,8 +78,8 @@ public class UrlFragment extends EncodeBaseFragment {
     @Override
     public boolean isEmpty() {
         if (etUrl != null && !etUrl.getText().toString().equals("")) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }

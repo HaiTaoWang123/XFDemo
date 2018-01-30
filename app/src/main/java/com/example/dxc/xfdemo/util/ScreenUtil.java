@@ -8,7 +8,7 @@ import android.util.Log;
 
 import static android.content.ContentValues.TAG;
 
-public class Util {
+public class ScreenUtil {
     public static void prepareMatrix(Matrix matrix, boolean mirror, int displayOrientation,
             int viewWidth, int viewHeight) {
         // Need mirror for front camera.
