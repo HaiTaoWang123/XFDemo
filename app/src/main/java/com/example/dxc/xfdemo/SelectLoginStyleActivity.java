@@ -61,6 +61,17 @@ public class SelectLoginStyleActivity extends BaseActivity {
                     startActivity(intent);
                     finish();
                 } else if (checkedSytle == 2) {
+                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        //权限还没有授予，需要在这里写申请权限的代码
+                        ActivityCompat.requestPermissions((Activity) context,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 60);
+                    }
+
+                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        //权限还没有授予，需要在这里写申请权限的代码
+                        ActivityCompat.requestPermissions((Activity) context,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 60);
+                    }
                     if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                         //权限还没有授予，需要在这里写申请权限的代码
                         ActivityCompat.requestPermissions((Activity) context,

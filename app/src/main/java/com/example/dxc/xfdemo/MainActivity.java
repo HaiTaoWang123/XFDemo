@@ -29,6 +29,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.bt_swsb).setOnClickListener(this);
         findViewById(R.id.bt_datastructure).setOnClickListener(this);
         findViewById(R.id.bt_scanner).setOnClickListener(this);
+        findViewById(R.id.bt_download).setOnClickListener(this);
     }
 
     @Override
@@ -86,7 +87,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     intent = new Intent(this, ScannerTestActivity.class);
                 }
                 break;
+            case R.id.bt_download:
+                intent = new Intent(this,FileDownloadTest.class);
+                break;
             default:
+                break;
         }
         if (intent != null) {
             startActivity(intent);

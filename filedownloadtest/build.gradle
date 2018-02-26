@@ -3,18 +3,14 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     defaultConfig {
-        applicationId "com.example.dxc.xfdemo"
-        minSdkVersion 21
+        applicationId "com.example.dxc.filedownloadtest"
+        minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        ndk {
-            //选择要添加的对应cpu类型的.so库
-            abiFilters 'armeabi', 'armeabi-v7a'
-            // 还可以添加 'armeabi', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
-        }
     }
     buildTypes {
         release {
@@ -22,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '26.0.2'
     productFlavors {
     }
 }
@@ -29,10 +26,4 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:23.1.0'
-    compile files('libs/Msc.jar')
-    compile files('libs/Sunflower.jar')
-    compile project(':zxingscanner')
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    //另外一种添加方式
-    /*compile 'com.mylhyl:zxingscanner:2.1.0'*/
 }

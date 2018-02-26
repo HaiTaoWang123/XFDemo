@@ -33,7 +33,7 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
     private Context context;
     private HorizontalScrollView hScrollView;
     private RadioGroup radioGroup;
-    private RadioButton rbText, rbUrl, rbSms, rbVacd, rbWifi, rbTel,rbIsbn;
+    private RadioButton rbText, rbUrl, rbSms, rbVacd, rbWifi, rbTel, rbIsbn;
     private ViewPager viewPager;
     private TextFragment textFragment;
     private UrlFragment urlFragment;
@@ -96,7 +96,8 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
         viewPager.setCurrentItem(0);
         rbText.setChecked(true);
         viewPager.addOnPageChangeListener(this);
-        radioGroup.setOnCheckedChangeListener(this);
+
+        getContentResolver();
     }
 
     @Override
@@ -154,8 +155,8 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         RadioButton radioButton = (RadioButton) group.findViewById(checkedId);
         int index = group.indexOfChild(radioButton);
-        hScrollView.smoothScrollTo(radioButton.getLeft()-
-                (int)(getWindowManager().getDefaultDisplay().getWidth()/4.5),0);
+        hScrollView.smoothScrollTo(radioButton.getLeft() -
+                (int) (getWindowManager().getDefaultDisplay().getWidth() / 4.5), 0);
         viewPager.setCurrentItem(index);
         /*switch (checkedId) {
             case R.id.rb_text:
