@@ -92,7 +92,7 @@ public class DownLoadFileDao {
      *
      * @param fileInfo
      */
-    private void updateDownLoadFile(DownLoadFileInfo fileInfo) {
+    public void updateDownLoadFile(DownLoadFileInfo fileInfo) {
         if (fileInfo == null) {
             return;
         }

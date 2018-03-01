@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -39,6 +40,10 @@ public class SelectLoginStyleActivity extends BaseActivity {
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.rg_login_style);
         RadioButton rbId = (RadioButton) findViewById(R.id.rb_id_login);
         RadioButton rbFace = (RadioButton) findViewById(R.id.rb_face_login);
+        RadioButton rbFinger = (RadioButton) findViewById(R.id.rb_finger_login);
+        if (Build.VERSION.SDK_INT < 23) {
+            rbFinger.setVisibility(View.GONE);
+        }
         rbId.setChecked(true);
         checkedSytle = 1;
 
@@ -49,6 +54,8 @@ public class SelectLoginStyleActivity extends BaseActivity {
                     checkedSytle = 1;
                 } else if (checkedId == R.id.rb_face_login) {
                     checkedSytle = 2;
+                }else if (checkedId == R.id.rb_finger_login) {
+                    checkedSytle = 3;
                 }
             }
         });
@@ -79,6 +86,17 @@ public class SelectLoginStyleActivity extends BaseActivity {
                     } else {
                         Intent intent = new Intent(SelectLoginStyleActivity.this, FaceRequestActivity.class);
                         intent.putExtra(FaceRequestActivity.M_Type, 0);
+                        startActivity(intent);
+                        finish();
+                    }
+                }else if(checkedSytle == 3){
+                    if (ContextCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+                        //权限还没有授予，需要在这里写申请权限的代码
+                        ActivityCompat.requestPermissions((Activity) context,
+                                new String[]{Manifest.permission.USE_FINGERPRINT}, 60);
+                    } else {
+                        Intent intent = new Intent(SelectLoginStyleActivity.this, FingerVerifierActivity.class);
+                        intent.putExtra(FingerVerifierActivity.TAG,true);
                         startActivity(intent);
                         finish();
                     }

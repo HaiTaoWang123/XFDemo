@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -120,5 +121,14 @@ public abstract class BaseActivity extends Activity {
             progressDialog.dismiss();
             progressDialog = null;
         }
+    }
+
+    /**
+     * 打印日志
+     * @param tag 标志
+     * @param msg 信息
+     */
+    protected void Log(String tag, String msg) {
+        Log.e(tag, msg);
     }
 }

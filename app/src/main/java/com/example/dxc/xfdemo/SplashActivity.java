@@ -47,6 +47,16 @@ public class SplashActivity extends Activity {
                     } else {
                         startActivity(new Intent(context, FaceVerifierTestActivity.class));
                     }
+                }else if (sp.getInt(is_Login_Style_Selected, 0) == 3) {//指纹识别登录
+                    if (ContextCompat.checkSelfPermission(SplashActivity.this,
+                            Manifest.permission.USE_FINGERPRINT)
+                            != PackageManager.PERMISSION_GRANTED) {
+                        //权限还没有授予，需要在这里写申请权限的代码
+                        ActivityCompat.requestPermissions(SplashActivity.this,
+                                new String[]{Manifest.permission.USE_FINGERPRINT}, 60);
+                    } else {
+                        startActivity(new Intent(context, FingerVerifierActivity.class));
+                    }
                 } else {//否则选择登录验证方式
                     startActivity(new Intent(context, SelectLoginStyleActivity.class));
                 }
