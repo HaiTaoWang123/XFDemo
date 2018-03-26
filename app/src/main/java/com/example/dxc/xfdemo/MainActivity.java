@@ -31,6 +31,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.bt_scanner).setOnClickListener(this);
         findViewById(R.id.bt_download).setOnClickListener(this);
         findViewById(R.id.bt_finger).setOnClickListener(this);
+        findViewById(R.id.bt_handler).setOnClickListener(this);
     }
 
     @Override
@@ -61,7 +62,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                             new String[]{Manifest.permission.CAMERA}, 60);
                 }
                 intent = new Intent(this, FaceRequestActivity.class);
-                intent.putExtra(FaceRequestActivity.M_Type,1);
+                intent.putExtra(FaceRequestActivity.M_Type, 1);
                 break;
             case R.id.bt_swsb:
                 intent = new Intent(this, SpeakerVerifierActivity.class);
@@ -89,11 +90,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.bt_download:
-                intent = new Intent(this,FileDownloadTest.class);
+                intent = new Intent(this, FileDownloadTest.class);
                 break;
             case R.id.bt_finger:
-                intent = new Intent(this,FingerVerifierActivity.class);
-                intent.putExtra(FingerVerifierActivity.TAG,false);
+                intent = new Intent(this, FingerVerifierActivity.class);
+                intent.putExtra(FingerVerifierActivity.TAG, false);
+                break;
+            case R.id.bt_handler:
+                intent = new Intent(this, HandlerActivity.class);
                 break;
             default:
                 break;

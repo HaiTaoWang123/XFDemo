@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="#939393"
+        android:background="@drawable/edit_text_shape"
         android:padding="10dp"
         android:orientation="vertical">
 
@@ -17,23 +17,32 @@
             android:id="@+id/rb_id_login"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:textColor="#EFEFEF"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#FFFFFF"
             android:textSize="18sp"
+            android:background="@drawable/btn_red_blue_select_selector"
             android:text="账号密码登录"/>
 
         <RadioButton
             android:id="@+id/rb_face_login"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textColor="#EFEFEF"
             android:textSize="18sp"
+            android:background="@drawable/btn_red_blue_select_selector"
             android:layout_marginTop="20dp"
             android:text="人脸登录"/>
         <RadioButton
             android:id="@+id/rb_finger_login"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
             android:textColor="#EFEFEF"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@drawable/btn_red_blue_select_selector"
             android:textSize="18sp"
             android:layout_marginTop="20dp"
             android:text="指纹登录"/>

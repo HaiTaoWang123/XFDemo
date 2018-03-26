@@ -107,7 +107,7 @@ public class DownLoadInfoDao {
      * @param url
      * @return
      */
-    private DownLoadTaskInfo getDownloadInfoByTaskIdAndUrl(int taskId, String url) {
+    public DownLoadTaskInfo getDownloadInfoByTaskIdAndUrl(int taskId, String url) {
         if (TextUtils.isEmpty(url)) {
             return null;
         }

@@ -20,6 +20,18 @@
         android:layout_below="@+id/iv_finger"
         android:layout_marginTop="20dp"
         android:textSize="18sp"
+        android:visibility="gone"
         android:textColor="#333333"/>
+
+    <Button
+        android:id="@+id/bt_finger_verifier"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_red_gray_press_selector"
+        android:text="开始识别"
+        android:textColor="#FFFFFF"
+        android:layout_below="@+id/tv_finger"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
 
 </RelativeLayout>

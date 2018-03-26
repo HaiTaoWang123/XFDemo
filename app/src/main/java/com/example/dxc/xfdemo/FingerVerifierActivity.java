@@ -13,6 +13,8 @@ import android.os.CancellationSignal;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ public class FingerVerifierActivity extends BaseActivity {
     private final static int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 0;
     public final static String TAG = "finger_log";
     public boolean flag = true;
+    private Button btFingerVerifier;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,8 +106,19 @@ public class FingerVerifierActivity extends BaseActivity {
     private void initView() {
         ivFinger = (ImageView) findViewById(R.id.iv_finger);
         tvFinger = (TextView) findViewById(R.id.tv_finger);
+        btFingerVerifier = (Button) findViewById(R.id.bt_finger_verifier);
         fingerManager = (FingerprintManager) this.getSystemService(Context.FINGERPRINT_SERVICE);
         keyguardManager = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+
+        if (!flag){//如果为登录方式初始化，button设置为影藏
+            btFingerVerifier.setVisibility(View.GONE);
+        }
+        btFingerVerifier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startFingerListener(null);
+            }
+        });
     }
 
 

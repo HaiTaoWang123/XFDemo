@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.dxc.filedownloadtest.activity.DownloadTestActivity;
 import com.example.dxc.filedownloadtest.db.DownLoadFileDao;
 import com.example.dxc.filedownloadtest.db.DownLoadInfoDao;
 import com.example.dxc.filedownloadtest.model.DownLoadFileInfo;
@@ -100,6 +101,9 @@ public class Downloader {
         }.start();
     }
 
+    public void updateDownloadInfo(Object o) {
+    }
+
 
     private class InnerHandler extends Handler {
         @Override
@@ -156,7 +160,9 @@ public class Downloader {
     }
 
     /**
-     * 将已下载大小归零
+     * 添加已下载大小
+     * 多线程访问需加锁
+     * @param size
      */
     protected synchronized void updateDownloadLength(long size) {
         this.downloadLength += size;
@@ -168,12 +174,12 @@ public class Downloader {
             downLoadFileInfo.setStatus(DownLoadFileInfo.Status.FINISHED);
             DownLoadFileDao.getInstance(context.getApplicationContext()).updateDownLoadFile(downLoadFileInfo);
         }
-        Intent intent = new Intent(Constants.DOWNLOAD_MSG);
-        if (downLoadFileInfo.getStatus() == DownLoadFileInfo.Status.WAITING) {
-            downLoadFileInfo.setStatus(DownLoadFileInfo.Status.DOWNLOADING);
-        }
+        Intent intent = new Intent(DownloadTestActivity.DOWNLOAD_MSG);
+//        if (downLoadFileInfo.getStatus() == DownLoadFileInfo.Status.WAITING) {
+//            downLoadFileInfo.setStatus(DownLoadFileInfo.Status.DOWNLOADING);
+//        }
         Bundle bundle = new Bundle();
-        bundle.putParcelable("downloadFileInfo", downLoadFileInfo);
+        bundle.putParcelable(DownloadTestActivity.BROADCAST_MSG, downLoadFileInfo);
         intent.putExtras(bundle);
         context.sendBroadcast(intent);
     }

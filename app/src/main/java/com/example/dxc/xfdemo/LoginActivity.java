@@ -137,4 +137,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onSettingClick() {
 
     }
+
+    @Override
+    public void onBackPressed() {
+        SharedPreferences sp = getSharedPreferences(SplashActivity.sp_Name, Activity.MODE_PRIVATE);
+        if (!sp.getBoolean(isRegist, false)){
+            Intent intent = new Intent(this,SelectLoginStyleActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }

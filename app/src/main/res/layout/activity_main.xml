@@ -110,6 +110,20 @@
             android:text="文件下载测试"
             android:textColor="#FFFFFF"
             android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/bt_handler"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:visibility="visible"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_launcher_background"
+            android:gravity="center"
+            android:text="Handler机制测试"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp" />
+
     </LinearLayout>
 
 </RelativeLayout>

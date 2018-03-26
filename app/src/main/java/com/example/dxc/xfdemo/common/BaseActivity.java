@@ -130,6 +130,5 @@ public abstract class BaseActivity extends Activity {
      */
     protected void Log(String tag, String msg) {
         Log.e(tag, msg);
-
     }
 }
