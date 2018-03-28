@@ -1,7 +1,11 @@
 package com.example.dxc.xfdemo;
 
+import android.annotation.SuppressLint;
+import android.app.Service;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -19,11 +23,12 @@ import com.example.dxc.xfdemo.common.BaseActivity;
  */
 
 public class HandlerActivity extends BaseActivity {
-    Button btHandler1, btHandler2, btHandler3;
-    Handler handler1, handler2, handler3;
+    Button btHandler1, btHandler2, btHandler3,btHandler4;
+    Handler handler1, handler4, handler3;
     int timer1 = 0, timer2 = 0;
     boolean Running1 = false, Running2 = false;
     MyThread myThread;
+    Intent serviceIntent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,7 +38,9 @@ public class HandlerActivity extends BaseActivity {
         btHandler1 = (Button) findViewById(R.id.bt_timer1);
         btHandler2 = (Button) findViewById(R.id.bt_timer2);
         btHandler3 = (Button) findViewById(R.id.bt_timer3);
+        btHandler4 = (Button) findViewById(R.id.btn_modle_delete);
 
+        serviceIntent = new Intent(getApplicationContext(),TimeService.class);
         handler1 = new Handler();
         btHandler1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,38 +50,54 @@ public class HandlerActivity extends BaseActivity {
                     Running1 = false;
                     Toast.makeText(HandlerActivity.this, "总计" + timer1 + "秒", Toast.LENGTH_LONG).show();
                 } else {
-                    handler1.postDelayed(runnable, 1000);
-
-                }
-            }
-        });
-
-        btHandler2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!Running2) {
-                    myThread = new MyThread();
-                    myThread.run();
-                    Running2 = true;
-                }
-                else if (myThread != null && !Running2){
-                    myThread.notify();
-                }
-                else {
-                    new Thread(new MyThread()).stop(new Throwable());
-                    Running2 = false;
-                    Message message = new Message();
-                    message.what = 2;
-                    handler.sendMessage(message);
-
-                    try {
-                        myThread.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if (timer1 >0){
+                        Toast.makeText(HandlerActivity.this, "此前计时" + timer1 + "秒", Toast.LENGTH_SHORT).show();
                     }
+                    handler1.postDelayed(runnable, 1000);
                 }
             }
         });
+
+//        btHandler2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!Running2) {
+//                    myThread = new MyThread();
+//                    myThread.run();
+//                    Running2 = true;
+//                }
+//                else if (myThread != null && !Running2){
+//                    myThread.notify();
+//                }
+//                else {
+//                    new Thread(new MyThread()).stop(new Throwable());
+//                    Running2 = false;
+//                    Message message = new Message();
+//                    message.what = 2;
+//                    handler.sendMessage(message);
+//
+//                    try {
+//                        myThread.wait();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
+//
+//        btHandler3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startService(serviceIntent);
+//            }
+//        });
+//
+//        btHandler4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                new Thread(new MyThread2()).run();
+//            }
+//        });
     }
 
 
@@ -82,9 +105,36 @@ public class HandlerActivity extends BaseActivity {
         @Override
         public void run() {
             handler1.postDelayed(this, 1000);
-            timer1++;
             Running1 = true;
-            Toast.makeText(HandlerActivity.this, "第" + timer1 + "秒", Toast.LENGTH_SHORT).show();
+            Message message = new Message();
+            message.what = 1;
+            runnableHandler.sendMessage(message);
+        }
+    };
+
+    @SuppressLint("HandlerLeak")
+    Handler runnableHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    timer1++;
+                    Toast.makeText(HandlerActivity.this, "第" + timer1 + "秒", Toast.LENGTH_SHORT).show();
+                    break;
+                    default:
+                        break;
+            }
+        }
+    };
+
+    static Runnable runnable2 = new Runnable() {
+        @Override
+        public void run() {
+            new Handler().postDelayed(this, 1000);
+            Message message = new Message();
+            message.what = 1;
+            handler2.sendMessage(message);
         }
     };
 
@@ -105,7 +155,38 @@ public class HandlerActivity extends BaseActivity {
         }
     }
 
+    public static class MyThread2 implements Runnable{
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(1000);
+                Message message = new Message();
+                message.what = 1;
+                handler2.sendMessage(message);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    @SuppressLint("HandlerLeak")
+    static Handler handler2 = new Handler(){
+        int i = 0;
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    i++;
+                    System.out.println("第"+i+"秒");
+                    break;
+                default:
+                    break;
+            }
+        }
+    };
+
+    @SuppressLint("HandlerLeak")
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -126,7 +207,8 @@ public class HandlerActivity extends BaseActivity {
 
     @Override
     public void onSettingClick() {
-
+        Intent intent = new Intent(this,CountTimeActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -134,6 +216,48 @@ public class HandlerActivity extends BaseActivity {
         super.onBackPressed();
         if (Running1) {
             handler1.removeCallbacks(runnable);
+        }
+        stopService(serviceIntent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopService(serviceIntent);
+    }
+
+    public static class TimeService extends Service{
+
+        @Nullable
+        @Override
+        public IBinder onBind(Intent intent) {
+//            new Thread(new MyThread2()).run();
+            return null;
+        }
+
+        @Override
+        public void onCreate() {
+//            new Thread(new MyThread2()).run();
+            Handler handler = new Handler();
+            handler.postDelayed(runnable2, 1000);
+            super.onCreate();
+        }
+
+        @Override
+        public int onStartCommand(Intent intent, int flags, int startId) {
+//            new Thread(new MyThread2()).run();
+            return super.onStartCommand(intent, flags, startId);
+        }
+
+        @Override
+        public void onStart(Intent intent, int startId) {
+            super.onStart(intent, startId);
+        }
+
+        @Override
+        public void onDestroy() {
+            super.onDestroy();
+            handler2.removeCallbacks(runnable2);
         }
     }
 }

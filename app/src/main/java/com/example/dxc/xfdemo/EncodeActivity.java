@@ -96,7 +96,7 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
         viewPager.setCurrentItem(0);
         rbText.setChecked(true);
         viewPager.addOnPageChangeListener(this);
-
+        radioGroup.setOnCheckedChangeListener(this);
         getContentResolver();
     }
 
