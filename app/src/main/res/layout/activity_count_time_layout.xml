@@ -13,9 +13,18 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:textColor="#333333"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:text="00:00.00"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:id="@+id/tv_interval_time"
+        android:layout_width="200dp"
+        android:layout_height="15dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:textColor="#333333"
+        android:textSize="12sp"
+        android:text="00:00.00"
         android:layout_marginBottom="20dp"/>
 
     <android.support.v7.widget.RecyclerView

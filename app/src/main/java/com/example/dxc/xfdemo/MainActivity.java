@@ -32,6 +32,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.bt_download).setOnClickListener(this);
         findViewById(R.id.bt_finger).setOnClickListener(this);
         findViewById(R.id.bt_handler).setOnClickListener(this);
+        findViewById(R.id.bt_timer).setOnClickListener(this);
     }
 
     @Override
@@ -98,6 +99,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.bt_handler:
                 intent = new Intent(this, HandlerActivity.class);
+                break;
+            case R.id.bt_timer:
+                intent = new Intent(this, CountTimeActivity.class);
                 break;
             default:
                 break;

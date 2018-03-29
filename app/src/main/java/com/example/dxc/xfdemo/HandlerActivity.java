@@ -35,6 +35,10 @@ public class HandlerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setBaseContentLayout(R.layout.activity_handler);
 
+        setTitle("Handler应用");
+        setBackVisible(true,"返回");
+        setSettingVisible(true,"秒表");
+
         btHandler1 = (Button) findViewById(R.id.bt_timer1);
         btHandler2 = (Button) findViewById(R.id.bt_timer2);
         btHandler3 = (Button) findViewById(R.id.bt_timer3);

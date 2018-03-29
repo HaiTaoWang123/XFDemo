@@ -5,125 +5,142 @@
     android:layout_height="match_parent"
     tools:context="com.example.dxc.xfdemo.MainActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp">
 
-        <Button
-            android:id="@+id/bt_yysb"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="语音识别"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/bt_yybb"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="语音播报"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/bt_yysb"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="语音识别"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/bt_face"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="人脸识别"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/bt_yybb"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="语音播报"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/bt_swsb"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="声纹识别"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/bt_face"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="人脸识别"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/bt_datastructure"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:visibility="gone"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="数据结构"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/bt_swsb"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="声纹识别"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/bt_scanner"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:visibility="visible"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="二维码扫描"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/bt_datastructure"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="数据结构"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="gone" />
 
-        <Button
-            android:id="@+id/bt_finger"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:visibility="visible"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="指纹识别"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/bt_scanner"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="二维码扫描"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="visible" />
+
+            <Button
+                android:id="@+id/bt_finger"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="指纹识别"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="visible" />
 
 
-        <Button
-            android:id="@+id/bt_download"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:visibility="visible"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="文件下载测试"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/bt_download"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="文件下载测试"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="visible" />
 
-        <Button
-            android:id="@+id/bt_handler"
-            android:layout_width="200dp"
-            android:layout_height="50dp"
-            android:visibility="visible"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_launcher_background"
-            android:gravity="center"
-            android:text="Handler机制测试"
-            android:textColor="#FFFFFF"
-            android:textSize="20sp" />
+            <Button
+                android:id="@+id/bt_handler"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="Handler"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="visible" />
+            <Button
+                android:id="@+id/bt_timer"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_launcher_background"
+                android:gravity="center"
+                android:text="秒表"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:visibility="visible" />
 
-    </LinearLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
