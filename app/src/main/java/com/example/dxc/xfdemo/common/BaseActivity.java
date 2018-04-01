@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dxc.xfdemo.R;
+import com.example.dxc.xfdemo.view.LoadingDialog;
 
 /**
  * Created by wahaitao on 12/25/2017.
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends Activity {
     protected LinearLayout llBack;
     protected FrameLayout base_content;
     private ProgressDialog progressDialog;
+    private LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -130,5 +132,55 @@ public abstract class BaseActivity extends Activity {
      */
     protected void Log(String tag, String msg) {
         Log.e(tag, msg);
+    }
+
+    /**
+     * 初始化加载对话框
+     *
+     * @param loadingText 加载对话框的提升文本
+     */
+    protected void initLoadingDialog(String loadingText) {
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.setLoadingText(loadingText);
+        loadingDialog.setCanceledOnTouchOutside(false);
+    }
+
+    /**
+     * 初始化加载对话框
+     *
+     * @param loadingText 加载对话框的提升文本
+     * @param canceledOnTouchOutside Dialog.setCanceledOnTouchOutside(..)
+     */
+    protected void initLoadingDialog(String loadingText, boolean canceledOnTouchOutside) {
+        loadingDialog = new LoadingDialog(this);
+        loadingDialog.setLoadingText(loadingText);
+        loadingDialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
+    }
+
+    /**
+     * 显示加载对话框
+     */
+    protected void showLoadingDialog() {
+        if (null != loadingDialog && !loadingDialog.isShowing()) {
+            loadingDialog.show();
+        }
+    }
+
+    /**
+     * 隐藏加载对话框
+     */
+    protected void hideLoadingDialog() {
+        if (null != loadingDialog && loadingDialog.isShowing()) {
+            loadingDialog.hide();
+        }
+    }
+
+    /**
+     * dismiss 加载对话框
+     */
+    protected void dismissLoadingDialog() {
+        if (null != loadingDialog && loadingDialog.isShowing()) {
+            loadingDialog.dismiss();
+        }
     }
 }

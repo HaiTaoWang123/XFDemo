@@ -33,6 +33,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.bt_finger).setOnClickListener(this);
         findViewById(R.id.bt_handler).setOnClickListener(this);
         findViewById(R.id.bt_timer).setOnClickListener(this);
+        findViewById(R.id.bt_touch).setOnClickListener(this);
     }
 
     @Override
@@ -102,6 +103,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.bt_timer:
                 intent = new Intent(this, CountTimeActivity.class);
+                break;
+                case R.id.bt_touch:
+                intent = new Intent(this, EventDispatchTest.class);
                 break;
             default:
                 break;
