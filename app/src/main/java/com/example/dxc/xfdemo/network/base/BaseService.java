@@ -1,9 +1,11 @@
 package com.example.dxc.xfdemo.network.base;
 
+import com.example.dxc.xfdemo.common.StringConfig;
 import com.example.dxc.xfdemo.network.api.StockApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * @Class:
@@ -14,15 +16,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class BaseService {
-    private static String URL = "http://web.juhe.cn:8080/finance/stock/";
+
     //静态的 Retrofit 实例
     private static Retrofit retrofit = null;
 
     private static Retrofit getRetrofitClient(){
         if (null == retrofit){
             retrofit = new Retrofit.Builder()
-                    .baseUrl(URL)
+                    .baseUrl(StringConfig.URL)
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(ScalarsConverterFactory.create())
                     .build();
         }
         return retrofit;

@@ -24,11 +24,11 @@ public class Stock {
     private String volume;//成交量
     private String amount;//成效额
     private String ticktime;//更新时间
-    private String per;//": 4.846,
-    private String pb;//": 0.883,
-    private String mktcap;//": 3.4195173662505E7,
-    private String nmc;//": 3.2740884942335E7,
-    private String turnoverratio;//": 0.08281
+    private String per;//本益比（普通股每股市场价格/普通股每股每年盈利）
+    private String pb;//平均市净率（平均市净率=股价/账面价值。其中，账面价值=总资产-无形资产-负债-优先股权益）
+    private String mktcap;//总市值（单位：万）
+    private String nmc;//流通市值（单位：万）
+    private String turnoverratio;//换手率
 
     public String getSymbol() {
         return symbol;

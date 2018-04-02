@@ -93,9 +93,9 @@ public abstract class BaseActivity extends Activity {
         }
 
         if (backText != null) {
-            tvSetting.setText(backText);
+            tvBack.setText(backText);
         } else {
-            tvSetting.setText("返回");
+            tvBack.setText("返回");
         }
     }
 

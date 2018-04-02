@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ARightAdapter extends BaseAdapter {
     private Context context;
-    List<Stock> list;
+    private List<Stock> list;
 
 
     public ARightAdapter(Context context, List<Stock> models) {
@@ -57,33 +57,39 @@ public class ARightAdapter extends BaseAdapter {
         ViewHold viewHold;
         if (convertView == null) {
             viewHold = new ViewHold();
-            convertView = LayoutInflater.from(context).inflate(R.layout.layout_right_item_a, parent,false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.layout_right_item_a, parent, false);
             viewHold.textView1 = (TextView) convertView.findViewById(R.id.right_item_textview0);
             viewHold.textView2 = (TextView) convertView.findViewById(R.id.right_item_textview1);
             viewHold.textView3 = (TextView) convertView.findViewById(R.id.right_item_textview2);
             viewHold.textView4 = (TextView) convertView.findViewById(R.id.right_item_textview3);
             viewHold.textView5 = (TextView) convertView.findViewById(R.id.right_item_textview4);
-//            viewHold.textView6 = (TextView) convertView.findViewById(R.id.right_item_textview5);
-//            viewHold.textView7 = (TextView) convertView.findViewById(R.id.right_item_textview6);
+            viewHold.textView6 = (TextView) convertView.findViewById(R.id.right_item_textview5);
+            viewHold.textView7 = (TextView) convertView.findViewById(R.id.right_item_textview6);
+            viewHold.textView8 = (TextView) convertView.findViewById(R.id.right_item_textview7);
+            viewHold.textView9 = (TextView) convertView.findViewById(R.id.right_item_textview8);
+            viewHold.textView10 = (TextView) convertView.findViewById(R.id.right_item_textview9);
             convertView.setTag(viewHold);
         } else {
             viewHold = (ViewHold) convertView.getTag();
         }
-        Stock stock = (Stock) getItem(position);
-        viewHold.textView1.setText(stock.getCode()+"");
-        viewHold.textView2.setText(stock.getTrade()+"");
-        viewHold.textView3.setText(stock.getPricechange()+"");
-        viewHold.textView4.setText(stock.getChangepercent()+"");
+        Stock stock = list.get(position);
+        viewHold.textView1.setText(stock.getTrade() + "");//最新价
+        viewHold.textView2.setText(stock.getPricechange() + "");//涨跌额
+        viewHold.textView3.setText(stock.getChangepercent() + "%");//涨跌幅
+        viewHold.textView4.setText(stock.getSettlement() + "");//昨收
+        viewHold.textView5.setText(stock.getOpen() + "");//今开
+        viewHold.textView6.setText(stock.getHigh() + "");//最高
+        viewHold.textView7.setText(stock.getLow()+ "");//最低
+        viewHold.textView8.setText(stock.getTurnoverratio() + "%");//换手率
+        viewHold.textView9.setText(stock.getAmount() + "");//成交额
+        viewHold.textView10.setText(stock.getVolume() + "");//成交量
 //        viewHold.textView5.setText(stock.getSpeed()+"");
-
 
 
         return convertView;
     }
 
     static class ViewHold {
-
-        TextView  textView1, textView2, textView3, textView4, textView5, textView6,textView7;
-
+        TextView textView1, textView2, textView3, textView4, textView5, textView6, textView7, textView8, textView9, textView10;
     }
 }

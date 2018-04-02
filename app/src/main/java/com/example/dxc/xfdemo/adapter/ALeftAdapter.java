@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.dxc.xfdemo.R;
+import com.example.dxc.xfdemo.model.Stock;
 
 import java.util.List;
 
@@ -22,9 +23,9 @@ import java.util.List;
 public class ALeftAdapter extends BaseAdapter {
 
     private Context context;
-    private List<String> list;
+    private List<Stock> list;
 
-    public ALeftAdapter(Context context, List<String> list) {
+    public ALeftAdapter(Context context, List<Stock> list) {
         super();
         this.context = context;
         this.list = list;
@@ -57,17 +58,19 @@ public class ALeftAdapter extends BaseAdapter {
         if (convertView==null) {
             hold=new ViewHold();
             convertView= LayoutInflater.from(context).inflate(R.layout.layout_left_item, null);
-            hold.textView=(TextView) convertView.findViewById(R.id.left_container_textview0);
+            hold.textView1=(TextView) convertView.findViewById(R.id.left_container_textview0);
+            hold.textView2=(TextView) convertView.findViewById(R.id.left_container_textview1);
             convertView.setTag(hold);
         }else {
             hold=(ViewHold) convertView.getTag();
         }
 
-        hold.textView.setText(list.get(position));
+        hold.textView1.setText(list.get(position).getName());
+        hold.textView2.setText(list.get(position).getCode());
         return convertView;
     }
 
     static class ViewHold{
-        TextView textView;
+        TextView textView1,textView2;
     }
 }
