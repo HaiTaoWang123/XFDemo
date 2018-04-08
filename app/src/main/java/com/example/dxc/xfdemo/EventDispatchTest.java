@@ -2,9 +2,11 @@ package com.example.dxc.xfdemo;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -14,12 +16,14 @@ import android.widget.Toast;
 import com.example.dxc.xfdemo.adapter.ALeftAdapter;
 import com.example.dxc.xfdemo.adapter.ARightAdapter;
 import com.example.dxc.xfdemo.common.BaseActivity;
-import com.example.dxc.xfdemo.model.BaseStockMdl;
+import com.example.dxc.xfdemo.model.BaseStockMDL;
 import com.example.dxc.xfdemo.model.Stock;
+import com.example.dxc.xfdemo.model.StockMDL;
 import com.example.dxc.xfdemo.network.base.NetWorkListener;
 import com.example.dxc.xfdemo.network.service.StockService;
 import com.example.dxc.xfdemo.util.ScreenUtil;
 import com.example.dxc.xfdemo.widget.MyHorizontalScrolloView;
+import com.google.gson.Gson;
 
 import java.lang.reflect.Method;
 import java.text.DecimalFormat;
@@ -38,6 +42,10 @@ import java.util.List;
 
 public class EventDispatchTest extends BaseActivity implements View.OnClickListener {
 
+    private static final String Default_Flag = "-1";//默认列表，不排序
+    private static final String Accending_Flag = "0";//升序排列
+    private static final String Descending_Flag = "1";//降序排列
+
     //左侧固定一列数据适配
     private ListView left_container_listview;
 //    private List<String> leftlList;
@@ -45,6 +53,7 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
     //右侧数据适配
     private ListView right_container_listview;
     private List<Stock> stockList;
+    private List<StockMDL> stockMDLList;
 
     private MyHorizontalScrolloView title_horsv;
     private MyHorizontalScrolloView content_horsv;
@@ -98,6 +107,7 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
         tvExchangeRate.setOnClickListener(this);
         tvAmount.setOnClickListener(this);
         tvVolume.setOnClickListener(this);
+        setTvTag();
 
         // 设置两个水平控件的联动
         title_horsv.setScrollView(content_horsv);
@@ -107,6 +117,7 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
         showLoadingDialog();
 
         stockList = new ArrayList<>();
+        stockMDLList = new ArrayList<>();
 //        leftlList = new ArrayList<>();
     }
 
@@ -143,13 +154,15 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
 //            leftlList.add(stockList.get(i).getName());
 //        }
 
-        StockService.getStockList(1,"A", 2, 4, new NetWorkListener<BaseStockMdl>() {
+
+        StockService.getStockList(1, "A", 2, 1, new NetWorkListener<BaseStockMDL>() {
             @Override
-            public void onSuccess(BaseStockMdl data) {
+            public void onSuccess(BaseStockMDL data) {
                 if (data != null && data.getData() != null) {
                     stockList.clear();
 //                    leftlList.clear();
                     stockList = formatData(data.getData());
+                    stockMDLList = formatStockData(data.getData());
 //                    for (int i = 0; i < stockList.size(); i++) {
 //                        leftlList.add(stockList.get(i).getName());
 //                    }
@@ -170,9 +183,9 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
             }
         });
 
-//        StockService.getWeatherList("A", 2, 20, new NetWorkListener<BaseStockMdl>() {
+//        StockService.getWeatherList("A", 2, 20, new NetWorkListener<BaseStockMDL>() {
 //            @Override
-//            public void onSuccess(BaseStockMdl data) {
+//            public void onSuccess(BaseStockMDL data) {
 //                if (data != null && data.getData() != null) {
 //                    stockList = data.getData();
 //                    for (int i = 0; i < stockList.size(); i++) {
@@ -196,20 +209,20 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
     public void onSettingClick() {
         showLoadingDialog();
         initData();
+        setTvDrawableRight(null, Default_Flag);
     }
 
     @Override
     public void onClick(View v) {
-        String sortType = "";
+//        String sortType = "";
         String var = null;
-
-        if (v.getTag() != null && v.getTag().equals("0")) {
-            v.setTag("1");
-        } else {
-            v.setTag("0");
+        if (v.getTag() == Default_Flag) {
+            setTvTag();
+        } else if (v.getTag() == Accending_Flag) {//升序
+            v.setTag(Descending_Flag);
+        } else if (v.getTag() == Descending_Flag) {//降序
+            v.setTag(Accending_Flag);
         }
-        sortType = (String) v.getTag();
-
         switch (v.getId()) {
             case R.id.right_tab_textview1:
                 var = "trade";
@@ -244,8 +257,15 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
             default:
                 break;
         }
+
         showLoadingDialog();
-        sortStockList(sortType, var);
+        if (v.getTag().equals(Descending_Flag) || v.getTag().equals(Accending_Flag)) {
+//            Collections.reverse(stockMDLList);
+        } else {
+            v.setTag(Descending_Flag);
+            sortStockList((String) v.getTag(), var);
+        }
+        setTvDrawableRight(v, (String) v.getTag());
 //        initView();
         leftAdapter.notifyDataSetChanged();
         rightAdapter.notifyDataSetChanged();
@@ -254,11 +274,13 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
 
     private void sortStockList(String i, String var) {
         //0代表升序，1代表降序
-        Comparator<Stock> stockComparator = new StockComparator(i, var);
-        Collections.sort(stockList, stockComparator);
+//        Comparator<Stock> stockComparator = new StockComparator(i, var);
+//        Collections.sort(stockList, stockComparator);
+        Comparator<StockMDL> stockComparator = new StockComparator(i, var);
+        Collections.sort(stockMDLList, stockComparator);
     }
 
-    private class StockComparator implements Comparator<Stock> {
+    private class StockComparator implements Comparator<StockMDL> {
         private String type;//1降序，其他升序
         private String var;//变量名，通过反射找到get方法；
 
@@ -268,12 +290,14 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
         }
 
         @Override
-        public int compare(Stock lhs, Stock rhs) {
+        public int compare(StockMDL lhs, StockMDL rhs) {
 
             if (invokeGet(lhs, var) != null && invokeGet(rhs, var) != null) {
-                Double a = Double.parseDouble((String) invokeGet(lhs, var));
-                Double b = Double.parseDouble((String) invokeGet(rhs, var));
-                if (type.equals("1")) {
+//                Double a = Double.parseDouble((String) invokeGet(lhs, var));
+//                Double b = Double.parseDouble((String) invokeGet(rhs, var));
+                Double a = (Double) invokeGet(lhs, var);
+                Double b = (Double) invokeGet(rhs, var);
+                if (type.equals(Descending_Flag)) {
                     return (int) (a * 100) - (int) (b * 100);
                 } else {
                     return (int) (b * 100) - (int) (a * 100);
@@ -314,16 +338,99 @@ public class EventDispatchTest extends BaseActivity implements View.OnClickListe
             stock.setCode(stocks.get(i).getCode());//代码
             stock.setTrade(df.format(Double.parseDouble(stocks.get(i).getTrade())));//最新价
             stock.setPricechange(df.format(Double.parseDouble(stocks.get(i).getPricechange())));//涨跌额
-            stock.setChangepercent( df.format(Double.parseDouble(stocks.get(i).getChangepercent())));//涨跌幅
+            stock.setChangepercent(df.format(Double.parseDouble(stocks.get(i).getChangepercent())));//涨跌幅
             stock.setSettlement(df.format(Double.parseDouble(stocks.get(i).getSettlement())));//昨收
             stock.setOpen(df.format(Double.parseDouble(stocks.get(i).getOpen())));//今开
             stock.setHigh(df.format(Double.parseDouble(stocks.get(i).getHigh())));//最高
             stock.setLow(df.format(Double.parseDouble(stocks.get(i).getLow())));//最低
+            stock.setBuy(df.format(Double.parseDouble(stocks.get(i).getBuy())));//最低
             stock.setTurnoverratio(df.format(Double.parseDouble(stocks.get(i).getTurnoverratio())));//换手率
             stock.setAmount(df.format(Double.parseDouble(stocks.get(i).getAmount()) * 0.00000001));//成交额
             stock.setVolume(df.format(Double.parseDouble(stocks.get(i).getVolume()) * 0.0001));
             stockList.add(stock);
         }
+        Log.e("stockList", new Gson().toJson(stockList));
         return stockList;
+    }
+
+    private List<StockMDL> formatStockData(List<Stock> stocks) {
+        List<StockMDL> stockList = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("######0.00");
+        for (int i = 0; i < stocks.size(); i++) {
+            StockMDL stock = new StockMDL();
+            stock.setName(stocks.get(i).getName());//名称
+            stock.setCode(stocks.get(i).getCode());//代码
+            stock.setTrade(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getTrade()))));//最新价
+            stock.setPricechange(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getPricechange()))));//涨跌额
+            stock.setChangepercent(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getChangepercent()))));//涨跌幅
+            stock.setSettlement(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getSettlement()))));//昨收
+            stock.setOpen(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getOpen()))));//今开
+            stock.setHigh(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getHigh()))));//最高
+            stock.setLow(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getLow()))));//最低
+            stock.setBuy(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getBuy()))));//最低
+            stock.setSell(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getSell()))));//卖价
+            stock.setMktcap(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getMktcap()))));//总市值
+            stock.setPer(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getPer()))));//本益比
+            stock.setPb(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getPb()))));//平均市净率
+            stock.setTurnoverratio(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getTurnoverratio()))));//换手率
+            stock.setAmount(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getAmount()) * 0.00000001)));//成交额
+            stock.setVolume(Double.parseDouble(df.format(Double.parseDouble(stocks.get(i).getVolume()) * 0.0001)));//成交量
+            stockList.add(stock);
+        }
+        Log.e("stockList", new Gson().toJson(stockList));
+        return stockList;
+    }
+
+
+    private void sortStockList(List<StockMDL> stocks, int flag, String var) {
+        for (int i = 0; i < stocks.size(); i++) {
+            for (int j = 1; j < stocks.size(); j++) {
+
+            }
+        }
+        invokeGet(stocks.get(0), var);
+    }
+
+    /**
+     * 设置默认非排序状态下的tag，均设置为-1
+     */
+    private void setTvTag() {
+        tvCurrentPrice.setTag(Default_Flag);
+        tvPriceChange.setTag(Default_Flag);
+        tvChangePercent.setTag(Default_Flag);
+        tvPriceLastDay.setTag(Default_Flag);
+        tvPriceToday.setTag(Default_Flag);
+        tvPriceHigh.setTag(Default_Flag);
+        tvPriceLow.setTag(Default_Flag);
+        tvExchangeRate.setTag(Default_Flag);
+        tvAmount.setTag(Default_Flag);
+        tvVolume.setTag(Default_Flag);
+    }
+
+    private void setTvDrawableRight(View view, String sortType) {
+        tvCurrentPrice.setCompoundDrawables(null, null, null, null);
+        tvPriceChange.setCompoundDrawables(null, null, null, null);
+        tvChangePercent.setCompoundDrawables(null, null, null, null);
+        tvPriceLastDay.setCompoundDrawables(null, null, null, null);
+        tvPriceToday.setCompoundDrawables(null, null, null, null);
+        tvPriceHigh.setCompoundDrawables(null, null, null, null);
+        tvPriceLow.setCompoundDrawables(null, null, null, null);
+        tvExchangeRate.setCompoundDrawables(null, null, null, null);
+        tvAmount.setCompoundDrawables(null, null, null, null);
+        tvVolume.setCompoundDrawables(null, null, null, null);
+
+        if (view != null && !sortType.equals(Default_Flag)) {
+            Drawable drawable = null;
+            if (sortType.equals(Descending_Flag)) {
+                drawable = getResources().getDrawable(R.mipmap.icon_descending);
+            } else if (sortType.equals(Accending_Flag)) {
+                drawable = getResources().getDrawable(R.mipmap.icon_accending);
+            }
+//            ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+//            ((TextView) view).setCompoundDrawablePadding(0);
+
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            ((TextView) view).setCompoundDrawables(null, null, drawable, null);
+        }
     }
 }

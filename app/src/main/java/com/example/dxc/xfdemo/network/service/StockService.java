@@ -1,7 +1,7 @@
 package com.example.dxc.xfdemo.network.service;
 
 import com.example.dxc.xfdemo.common.StringConfig;
-import com.example.dxc.xfdemo.model.BaseStockMdl;
+import com.example.dxc.xfdemo.model.BaseStockMDL;
 import com.example.dxc.xfdemo.network.api.StockApi;
 import com.example.dxc.xfdemo.network.base.BaseCallBack;
 import com.example.dxc.xfdemo.network.base.BaseResponse;
@@ -23,31 +23,39 @@ public class StockService {
 
     /**
      * 获取沪市或者深市股票实时列表
-     * @param flag 0-沪市；1-深市
+     *
+     * @param flag      0-沪市；1-深市
      * @param stockType A：A股/B:B股
      * @param pageIndex 第几页
-     * @param type 每页数量：1-20条；2-40条；3-60条；4-80条
+     * @param type      每页数量：1-20条；2-40条；3-60条；4-80条
      * @param listener
      */
-    public static void getStockList(int flag,String stockType, int pageIndex, int type, NetWorkListener listener){
-        if (null == stockApi){
+    public static void getStockList(int flag, String stockType, int pageIndex, int type, NetWorkListener listener) {
+        if (null == stockApi) {
             stockApi = BaseService.getStockApi();
         }
-        Call<BaseResponse<BaseStockMdl>> call;
+        Call<BaseResponse<BaseStockMDL>> call;
         if (flag == 0) {
             call = stockApi.getAllSHStock(StringConfig.NETWORK_KEY, stockType, pageIndex, type);
-        }else {
+        } else {
             call = stockApi.getAllSZStock(StringConfig.NETWORK_KEY, stockType, pageIndex, type);
         }
-        call.enqueue(new BaseCallBack<BaseStockMdl>(listener));
+        call.enqueue(new BaseCallBack<BaseStockMDL>(listener));
     }
 
-//    public static void getWeatherList(String stockType, int pageIndex, int num, NetWorkListener listener){
-//        if (null == stockApi){
-//            stockApi = BaseService.getStockApi();
-//        }
-//
-//        Call<BaseResponse<String>> call = stockApi.currentWeather(StringConfig.WEATHER_KEY,"武汉","zh-Hans","c",0,5);
-//        call.enqueue(new BaseCallBack<String>(listener));
-//    }
+    /**
+     * 根据股票代码查询股票信息
+     *
+     * @param stockCode 股票编号，上海股市以sh开头，深圳股市以sz开头如：sh601009（type为0或者1时gid不是必须）
+     * @param type      0代表上证指数，1代表深证指数
+     * @param listener
+     */
+    public static void getStockInfo(String stockCode, int type, NetWorkListener listener) {
+        if (null == stockApi) {
+            stockApi = BaseService.getStockApi();
+        }
+        Call<BaseResponse<BaseStockMDL>> call;
+        call = stockApi.getStockInfo(stockCode, StringConfig.NETWORK_KEY, type);
+        call.enqueue(new BaseCallBack<BaseStockMDL>(listener));
+    }
 }

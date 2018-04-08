@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dxc.xfdemo.common.BaseActivity;
-import com.example.dxc.xfdemo.model.TimeCountMdl;
+import com.example.dxc.xfdemo.model.TimeCountMDL;
 import com.example.dxc.xfdemo.util.ScreenUtil;
 
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
     RecyclerView rvCountTime;
     int timeCount = 0, intervalTimeCount = 0;
     Handler handler;
-    List<TimeCountMdl> countedTimesList;
+    List<TimeCountMDL> countedTimesList;
     TimeAdapter timeAdapter;
     boolean isStoped = false;
     Timer timer;
@@ -206,10 +206,10 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
                     break;
                 case 2:
 //                    intervalTimeCount = timeCount - intervalTimeCount;
-//                    countedTimesList.add(new TimeCountMdl(setTime(minute, second, mSecond),
+//                    countedTimesList.add(new TimeCountMDL(setTime(minute, second, mSecond),
 //                            setTime(intervalTimeCount / 6000, (intervalTimeCount / 100) % 60, intervalTimeCount % 100)));
 //                    timeAdapter.notifyDataSetChanged();
-                    countedTimesList.add(new TimeCountMdl(getStringTime(timeCount), getStringTime(intervalTimeCount)));
+                    countedTimesList.add(new TimeCountMDL(getStringTime(timeCount), getStringTime(intervalTimeCount)));
                     if (countedTimesList.size() > 0) {
                         timeAdapter.notifyItemInserted(countedTimesList.size() - 1);
                         ((LinearLayoutManager) rvCountTime.getLayoutManager()).scrollToPositionWithOffset(countedTimesList.size() - 1, 0);
@@ -225,9 +225,9 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
 
     private class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.ViewHolder> {
         private Context context;
-        private List<TimeCountMdl> times;
+        private List<TimeCountMDL> times;
 
-        public TimeAdapter(Context context, List<TimeCountMdl> timeList) {
+        public TimeAdapter(Context context, List<TimeCountMDL> timeList) {
             this.context = context;
             this.times = timeList;
         }

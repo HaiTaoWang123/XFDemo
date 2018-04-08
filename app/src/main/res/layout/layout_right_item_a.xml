@@ -9,7 +9,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
     <TextView
@@ -17,7 +18,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
     <TextView
@@ -25,7 +27,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
     <TextView
@@ -33,7 +36,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
     <TextView
@@ -41,7 +45,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
     <TextView
@@ -49,7 +54,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
     <TextView
@@ -57,7 +63,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
     <TextView
@@ -65,7 +72,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:textColor="#333333"
+        android:text="— —"
         android:textSize="16sp" />
 
     <TextView
@@ -73,7 +81,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
     <TextView
@@ -81,7 +90,8 @@
         android:layout_width="90dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text=""
+        android:text="— —"
+        android:textColor="#333333"
         android:textSize="16sp" />
 
 </LinearLayout>

@@ -8,12 +8,12 @@ package com.example.dxc.xfdemo.model;
  * @Version 1.0
  */
 
-public class TimeCountMdl {
+public class TimeCountMDL {
 
     private String time;
     private String intervalTime;
 
-    public TimeCountMdl(String time, String intervalTime) {
+    public TimeCountMDL(String time, String intervalTime) {
         this.time = time;
         this.intervalTime = intervalTime;
     }

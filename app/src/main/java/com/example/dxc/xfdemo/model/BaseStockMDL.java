@@ -10,7 +10,7 @@ import java.util.List;
  * @Version 1.0
  */
 
-public class BaseStockMdl {
+public class BaseStockMDL {
     private String totalCount;//总条数
     private String page;//当前页
     private String num;//显示条数

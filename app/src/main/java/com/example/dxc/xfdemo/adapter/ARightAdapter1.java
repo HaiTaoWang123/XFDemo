@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.dxc.xfdemo.R;
-import com.example.dxc.xfdemo.model.Stock;
+import com.example.dxc.xfdemo.model.StockMDL;
 
 import java.util.List;
 
@@ -21,12 +21,12 @@ import java.util.List;
  * @Version 1.0
  */
 
-public class ARightAdapter extends BaseAdapter {
+public class ARightAdapter1 extends BaseAdapter {
     private Context context;
-    private List<Stock> list;
+    private List<StockMDL> list;
 
 
-    public ARightAdapter(Context context, List<Stock> models) {
+    public ARightAdapter1(Context context, List<StockMDL> models) {
         super();
         this.context = context;
         this.list = models;
@@ -73,8 +73,8 @@ public class ARightAdapter extends BaseAdapter {
         } else {
             viewHold = (ViewHold) convertView.getTag();
         }
-        Stock stock = list.get(position);
-        if ((int) (Double.parseDouble(stock.getBuy()) * 100) == 0) {
+        StockMDL stock = list.get(position);
+        if ((int) (stock.getBuy() * 100) == 0) {
             viewHold.textView3.setText("停牌");
             viewHold.textView1.setText(stock.getSettlement() + "");//最新价
             viewHold.textView2.setText("0.00");//涨跌额
@@ -91,21 +91,21 @@ public class ARightAdapter extends BaseAdapter {
             viewHold.textView9.setText(stock.getAmount() + "");//成交额
             viewHold.textView10.setText(stock.getVolume() + "");//成交量
         }
-        if ((int) (Double.parseDouble(stock.getPricechange()) * 100) < 0) {
+        if ((int) (stock.getPricechange() * 100) < 0) {
             viewHold.textView1.setTextColor(Color.GREEN);
             viewHold.textView2.setTextColor(Color.GREEN);
             viewHold.textView3.setTextColor(Color.GREEN);
-        } else if ((int) (Double.parseDouble(stock.getPricechange()) * 100) > 0) {
+        } else if ((int) (stock.getPricechange() * 100) > 0) {
             viewHold.textView1.setTextColor(Color.RED);
             viewHold.textView2.setTextColor(Color.RED);
             viewHold.textView3.setTextColor(Color.RED);
         }
 
-        Double d1 = Double.parseDouble(stock.getHigh());
-        Double d2 = Double.parseDouble(stock.getLow());
-        Double d3 = Double.parseDouble(stock.getOpen());
-        Double d4 = Double.parseDouble(stock.getSettlement());
-        if ((int) (Double.parseDouble(stock.getBuy()) * 100) != 0) {
+        Double d1 = stock.getHigh();
+        Double d2 = stock.getLow();
+        Double d3 = stock.getOpen();
+        Double d4 = stock.getSettlement();
+        if ((int) (stock.getBuy() * 100) != 0) {
             if (d1.compareTo(d4) > 0) {
                 viewHold.textView6.setTextColor(Color.RED);
             } else if (d1.compareTo(d4) < 0) {
