@@ -1,1 +1,1 @@
-include ':app', ':zxingscanner', ':filedownloadtest', ':baseutils'
+include ':app', ':zxingscanner', ':filedownloadtest'
