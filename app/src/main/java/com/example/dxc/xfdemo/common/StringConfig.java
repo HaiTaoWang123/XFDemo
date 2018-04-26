@@ -16,5 +16,6 @@ public class StringConfig {
     public static final String WEATHER_URL = "https://api.seniverse.com/v3/weather/";
     public static final String WEATHER_KEY = "vgrv1ybracazh5wb";//网络请求成功
 
-
+    public static final String Bugly_ID = "616896c80a";//腾讯Bugly APP ID
+    public static final String App_Key = "9c944663-6155-4da9-9bfd-c5d88d5d2535";//腾讯Bugly的App Key
 }

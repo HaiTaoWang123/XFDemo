@@ -76,6 +76,20 @@
                 android:textColor="@drawable/rb_textcolor_selector"
                 android:textSize="18sp" />
 
+            <RadioButton
+                android:id="@+id/rb_test"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rb_background_selector"
+                android:button="@null"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="事件分发测试"
+                android:textColor="@drawable/rb_textcolor_selector"
+                android:textSize="18sp" />
+
 
             <RadioButton
                 android:id="@+id/rb_tel"

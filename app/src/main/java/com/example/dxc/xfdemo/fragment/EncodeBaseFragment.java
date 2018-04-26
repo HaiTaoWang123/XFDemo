@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.dxc.xfdemo.R;
@@ -37,6 +38,7 @@ public abstract class EncodeBaseFragment extends Fragment {
     public View view;
     protected Context context;
     private ProgressDialog progressDialog;
+    private LinearLayout llEncoding;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,6 +69,8 @@ public abstract class EncodeBaseFragment extends Fragment {
         btClear = (Button) view.findViewById(R.id.bt_clear);
         btEncoding = (Button) view.findViewById(R.id.bt_encoding);
         ivEncodingResult = (ImageView) view.findViewById(R.id.iv_encode_result);
+        llEncoding = (LinearLayout) view.findViewById(R.id.ll_enconding);
+
         btClear.setOnClickListener(clickListener);
         btEncoding.setOnClickListener(clickListener);
         ivEncodingResult.setOnClickListener(clickListener);
@@ -191,6 +195,10 @@ public abstract class EncodeBaseFragment extends Fragment {
             progressDialog.dismiss();
             progressDialog = null;
         }
+    }
+
+    protected void setEncodingGone(){
+        llEncoding.setVisibility(View.GONE);
     }
 
     @Override

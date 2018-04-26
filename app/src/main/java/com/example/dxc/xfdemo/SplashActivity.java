@@ -55,7 +55,9 @@ public class SplashActivity extends Activity {
                         ActivityCompat.requestPermissions(SplashActivity.this,
                                 new String[]{Manifest.permission.USE_FINGERPRINT}, 60);
                     } else {
-                        startActivity(new Intent(context, FingerVerifierActivity.class));
+                        Intent intent = new Intent(context,FingerVerifierActivity.class);
+                        intent.putExtra(FingerVerifierActivity.TAG, false);
+                        startActivity(intent);
                     }
                 } else {//否则选择登录验证方式
                     startActivity(new Intent(context, SelectLoginStyleActivity.class));

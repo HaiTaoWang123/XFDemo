@@ -27,7 +27,7 @@ import java.util.TimerTask;
 /**
  * @Class: CountTimeActivity
  * @Description: 模仿秒表计次功能；
- * @Author: haitaow(haitaow@hpe.com)
+ * @Author: haitaow(haitaow @ hpe.com)
  * @Date: 3/28/2018-5:12 PM.
  * @Version 1.0
  */
@@ -97,6 +97,12 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+
+    }
+
+    @Override
     public void onSettingClick() {
 
     }
@@ -108,9 +114,9 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
                 if (!isStoped) {
 //                    handler.postDelayed(runnable, 100);
 //                    handler.postDelayed(runnable, 25);
-//                    if(timer == null){
-                    timer = new Timer();
-//                    }
+                    if (timer == null) {
+                        timer = new Timer();
+                    }
                     timer.schedule(new MyTask(), 10, 10);
 
                     isStoped = true;
@@ -119,9 +125,9 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
                     btReset.setEnabled(true);
                 } else {
 //                    handler.removeCallbacks(runnable);
-//                    if (timer != null) {
-                    timer.cancel();//暂停
-//                    }
+                    if (timer != null) {
+                        timer.cancel();//暂停
+                    }
                     isStoped = false;
                     btStart.setText("暂停");
                     btCount.setEnabled(false);
@@ -135,9 +141,9 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
                 countedTimesList.clear();
                 timeAdapter.notifyDataSetChanged();
 
-//                if (timer != null) {
-                timer.cancel();//暂停
-//                }
+                if (timer != null) {
+                    timer.cancel();//暂停
+                }
                 tvTime.setText("00:00.00");
                 tvIntervalTime.setText("00:00.00");
                 btStart.setText("开始");

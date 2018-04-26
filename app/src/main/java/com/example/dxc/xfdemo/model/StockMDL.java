@@ -8,7 +8,7 @@ package com.example.dxc.xfdemo.model;
  * @Version 1.0
  */
 
-public class StockMDL {
+public class StockMDL extends Object{
     private String symbol;//代码
     private String code;//简码
     private String name;//名称

@@ -30,6 +30,32 @@ public class Stock {
     private String nmc;//流通市值（单位：万）
     private String turnoverratio;//换手率
 
+    public Stock() {
+    }
+
+    public Stock(String symbol, String code, String name, String trade, String pricechange, String changepercent, String buy, String sell, String settlement, String open, String high, String low, String volume, String amount, String ticktime, String per, String pb, String mktcap, String nmc, String turnoverratio) {
+        this.symbol = symbol;
+        this.code = code;
+        this.name = name;
+        this.trade = trade;
+        this.pricechange = pricechange;
+        this.changepercent = changepercent;
+        this.buy = buy;
+        this.sell = sell;
+        this.settlement = settlement;
+        this.open = open;
+        this.high = high;
+        this.low = low;
+        this.volume = volume;
+        this.amount = amount;
+        this.ticktime = ticktime;
+        this.per = per;
+        this.pb = pb;
+        this.mktcap = mktcap;
+        this.nmc = nmc;
+        this.turnoverratio = turnoverratio;
+    }
+
     public String getSymbol() {
         return symbol;
     }

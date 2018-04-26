@@ -82,7 +82,7 @@ public class FingerVerifierActivity extends BaseActivity {
         @Override
         public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
             Toast.makeText(FingerVerifierActivity.this, "指纹识别成功", Toast.LENGTH_SHORT).show();
-            if (flag) {
+            if (!flag) {
                 Intent intent = new Intent(FingerVerifierActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -103,6 +103,7 @@ public class FingerVerifierActivity extends BaseActivity {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     private void initView() {
         ivFinger = (ImageView) findViewById(R.id.iv_finger);
         tvFinger = (TextView) findViewById(R.id.tv_finger);
@@ -125,7 +126,7 @@ public class FingerVerifierActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS) {
-            if (requestCode == RESULT_OK && flag) {
+            if (requestCode == RESULT_OK && !flag) {
                 Toast.makeText(this, "识别成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FingerVerifierActivity.this, MainActivity.class);
                 startActivity(intent);

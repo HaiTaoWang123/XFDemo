@@ -11,6 +11,7 @@ import android.widget.RadioGroup;
 
 import com.example.dxc.xfdemo.adapter.EncodeFragmentPageAdapter;
 import com.example.dxc.xfdemo.common.BaseFragmentActivity;
+import com.example.dxc.xfdemo.fragment.DispatchTouchEventFragment;
 import com.example.dxc.xfdemo.fragment.EncodeBaseFragment;
 import com.example.dxc.xfdemo.fragment.IsbnFragment;
 import com.example.dxc.xfdemo.fragment.SmsFragment;
@@ -33,12 +34,13 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
     private Context context;
     private HorizontalScrollView hScrollView;
     private RadioGroup radioGroup;
-    private RadioButton rbText, rbUrl, rbSms, rbVacd, rbWifi, rbTel, rbIsbn;
+    private RadioButton rbText, rbUrl, rbSms, rbTest, rbVacd, rbWifi, rbTel, rbIsbn;
     private ViewPager viewPager;
     private TextFragment textFragment;
     private UrlFragment urlFragment;
     private SmsFragment smsFragment;
     private TelFragment telFragment;
+    private DispatchTouchEventFragment testFragment;
     private VacdFragment vacdFragment;
     private WifiFragment wifiFragment;
     private IsbnFragment isbnFragment;
@@ -64,6 +66,7 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
         radioGroup = (RadioGroup) findViewById(R.id.rg_encoded_type);
         rbText = (RadioButton) findViewById(R.id.rb_text);
         rbSms = (RadioButton) findViewById(R.id.rb_sms);
+        rbTest = (RadioButton) findViewById(R.id.rb_test);
         rbUrl = (RadioButton) findViewById(R.id.rb_url);
         rbTel = (RadioButton) findViewById(R.id.rb_tel);
         rbWifi = (RadioButton) findViewById(R.id.rb_wifi);
@@ -75,6 +78,8 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
     private void intiViewPager() {
         textFragment = new TextFragment(context);
         telFragment = new TelFragment(context);
+        testFragment = new DispatchTouchEventFragment(context);
+        testFragment.setmParentWidth(viewPager.getWidth());
         smsFragment = new SmsFragment(context);
         vacdFragment = new VacdFragment(context);
         wifiFragment = new WifiFragment(context);
@@ -86,6 +91,7 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
         fragmentList.add(urlFragment);
         fragmentList.add(isbnFragment);
         fragmentList.add(smsFragment);
+        fragmentList.add(testFragment);
         fragmentList.add(telFragment);
         fragmentList.add(vacdFragment);
         fragmentList.add(wifiFragment);
@@ -130,14 +136,18 @@ public class EncodeActivity extends BaseFragmentActivity implements RadioGroup.O
                 rbSms.performClick();
                 break;
             case 4:
+                radioGroup.check(R.id.rb_test);
+                rbTest.performClick();
+                break;
+            case 5:
                 radioGroup.check(R.id.rb_tel);
                 rbTel.performClick();
                 break;
-            case 5:
+            case 6:
                 radioGroup.check(R.id.rb_vcd);
                 rbVacd.performClick();
                 break;
-            case 6:
+            case 7:
                 radioGroup.check(R.id.rb_wifi);
                 rbWifi.performClick();
                 break;

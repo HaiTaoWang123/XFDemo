@@ -13,7 +13,7 @@ import retrofit2.Response;
  * @Date: 4/1/2018-6:28 PM.
  * @Version 1.0
  */
-
+@SuppressWarnings("unchecked")
 public class BaseCallBack<T> implements Callback<BaseResponse<T>> {
     private NetWorkListener netWorkListener;
 

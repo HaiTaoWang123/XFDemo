@@ -8,9 +8,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.dxc.xfdemo.R;
-import com.example.dxc.xfdemo.model.Stock;
+import com.example.dxc.xfdemo.model.StockMDL;
 
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * @Class:
@@ -23,12 +23,14 @@ import java.util.List;
 public class ALeftAdapter extends BaseAdapter {
 
     private Context context;
-    private List<Stock> list;
+    private HashMap<Integer,Object> list;
+    private boolean isReverse;
 
-    public ALeftAdapter(Context context, List<Stock> list) {
+    public ALeftAdapter(Context context, HashMap<Integer,Object> list, boolean isReverse) {
         super();
         this.context = context;
         this.list = list;
+        this.isReverse = isReverse;
     }
 
     @Override
@@ -64,9 +66,15 @@ public class ALeftAdapter extends BaseAdapter {
         }else {
             hold=(ViewHold) convertView.getTag();
         }
+        StockMDL stock;
+        if (isReverse) {
+            stock = (StockMDL) list.get(list.size() - 1 - position);
+        } else {
+            stock = (StockMDL) list.get(position);
+        }
 
-        hold.textView1.setText(list.get(position).getName());
-        hold.textView2.setText(list.get(position).getCode());
+        hold.textView1.setText(stock.getName());
+        hold.textView2.setText(stock.getCode());
         return convertView;
     }
 

@@ -1,17 +1,25 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
+        mavenCentral()
         //添加maven源
         maven {
             url "http://maven.bughd.com/public"
         }
+        maven { url "https://dl.bintray.com/devilwwj/maven/" }
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.novoda:bintray-release:0.8.1'
+
+//         腾讯bugly
+        classpath 'com.tencent.bugly:symtabfileuploader:2.1.0'
+//        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
 //        添加fir插件依赖
 //        classpath 'im.fir:gradle-fir-publisher:2.3'
 
@@ -24,6 +32,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 }
 

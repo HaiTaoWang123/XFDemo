@@ -96,7 +96,7 @@ public class SelectLoginStyleActivity extends BaseActivity {
                                 new String[]{Manifest.permission.USE_FINGERPRINT}, 60);
                     } else {
                         Intent intent = new Intent(SelectLoginStyleActivity.this, FingerVerifierActivity.class);
-                        intent.putExtra(FingerVerifierActivity.TAG,true);
+                        intent.putExtra(FingerVerifierActivity.TAG,false);
                         startActivity(intent);
                         finish();
                     }

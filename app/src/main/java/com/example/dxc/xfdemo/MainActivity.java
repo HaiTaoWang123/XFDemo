@@ -96,7 +96,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.bt_finger:
                 intent = new Intent(this, FingerVerifierActivity.class);
-                intent.putExtra(FingerVerifierActivity.TAG, false);
+                intent.putExtra(FingerVerifierActivity.TAG, true);
                 break;
             case R.id.bt_handler:
                 intent = new Intent(this, HandlerActivity.class);
@@ -105,7 +105,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(this, CountTimeActivity.class);
                 break;
                 case R.id.bt_touch:
-                intent = new Intent(this, EventDispatchTest.class);
+                intent = new Intent(this, EventDispatchTestActivity.class);
                 break;
             default:
                 break;
