@@ -2,6 +2,7 @@ package com.example.dxc.xfdemo;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,19 +38,20 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
     Button btStart, btCount, btReset;
     RecyclerView rvCountTime;
     int timeCount = 0, intervalTimeCount = 0;
-    Handler handler;
+//    Handler handler;
     List<TimeCountMDL> countedTimesList;
     TimeAdapter timeAdapter;
     boolean isStoped = false;
     Timer timer;
+    MyTask myTask;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setBaseContentLayout(R.layout.activity_count_time_layout);
-        setTitle("秒表");
+        setTitle("秒表（TimerTask+Handler）");
         setBackVisible(true, "返回");
-        setSettingVisible(false, "");
+        setSettingVisible(true, "AsyncTask");
 
         initViews();
     }
@@ -81,7 +83,7 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
 //            }
 //        }
 
-        handler = new Handler();
+//        handler = new Handler();
         timer = new Timer();
 
         countedTimesList = new ArrayList<>();
@@ -97,14 +99,13 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
     }
 
     @Override
-    public void onUserInteraction() {
-        super.onUserInteraction();
-
-    }
-
-    @Override
     public void onSettingClick() {
-
+        Intent intent = new Intent(CountTimeActivity.this,CountTimeActivity_1.class);
+        startActivity(intent);
+        if (myTask != null){
+            myTask.cancel();
+            myTask = null;
+        }
     }
 
     @Override
@@ -112,21 +113,17 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.bt_start:
                 if (!isStoped) {
-//                    handler.postDelayed(runnable, 100);
-//                    handler.postDelayed(runnable, 25);
-                    if (timer == null) {
-                        timer = new Timer();
-                    }
-                    timer.schedule(new MyTask(), 10, 10);
-
+                    timer = new Timer();
+                    myTask = new MyTask();
+                    timer.schedule(myTask, 10, 10);
                     isStoped = true;
                     btStart.setText("计时中");
                     btCount.setEnabled(true);
                     btReset.setEnabled(true);
                 } else {
-//                    handler.removeCallbacks(runnable);
                     if (timer != null) {
                         timer.cancel();//暂停
+                        myTask = null;
                     }
                     isStoped = false;
                     btStart.setText("暂停");
@@ -134,25 +131,17 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
                 }
                 break;
             case R.id.bt_reset:
-                //TODO
-//                handler.removeCallbacks(runnable);
-                timeCount = 0;
-                intervalTimeCount = 0;
-                countedTimesList.clear();
-                timeAdapter.notifyDataSetChanged();
-
                 if (timer != null) {
                     timer.cancel();//暂停
                 }
-                tvTime.setText("00:00.00");
-                tvIntervalTime.setText("00:00.00");
-                btStart.setText("开始");
-                btCount.setEnabled(false);
-                btReset.setEnabled(false);
-                isStoped = false;
+                myTask = null;
+                timeCount = 0;
+                intervalTimeCount = 0;
+                Message message1 = new Message();
+                message1.what = 3;
+                timeHandler.sendMessage(message1);
                 break;
             case R.id.bt_count:
-                //TODO
                 Message message = new Message();
                 message.what = 2;
                 timeHandler.sendMessage(message);
@@ -161,20 +150,6 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
                 break;
         }
     }
-
-    /**
-     * Runnable接口实现定时
-     */
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-//            handler.postDelayed(runnable, 100);
-            handler.postDelayed(runnable, 25);
-            Message message = new Message();
-            message.what = 1;
-            timeHandler.sendMessage(message);
-        }
-    };
 
     /**
      * Task和Timer实现定时
@@ -186,6 +161,11 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
             Message message = new Message();
             message.what = 1;
             timeHandler.sendMessage(message);
+        }
+
+        @Override
+        public boolean cancel() {
+            return super.cancel();
         }
     }
 
@@ -199,29 +179,26 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
                 case 1:
                     timeCount++;
                     intervalTimeCount++;
-//                    mSecond = timeCount % 9;
-//                    second = (timeCount / 10) % 60;
-//                    minute = timeCount / 600;
-//                    mSecond = timeCount % 100 ;
-//                    second = (timeCount / 100) % 60;
-//                    minute = timeCount / 6000;
-//                    tvTime.setText(setTime(minute, second, mSecond));
-//                    tvIntervalTime.setText(setTime(intervalTimeCount / 6000, (intervalTimeCount / 100) % 60, intervalTimeCount % 100));
                     tvTime.setText(getStringTime(timeCount));
                     tvIntervalTime.setText(getStringTime(intervalTimeCount));
                     break;
                 case 2:
-//                    intervalTimeCount = timeCount - intervalTimeCount;
-//                    countedTimesList.add(new TimeCountMDL(setTime(minute, second, mSecond),
-//                            setTime(intervalTimeCount / 6000, (intervalTimeCount / 100) % 60, intervalTimeCount % 100)));
-//                    timeAdapter.notifyDataSetChanged();
                     countedTimesList.add(new TimeCountMDL(getStringTime(timeCount), getStringTime(intervalTimeCount)));
                     if (countedTimesList.size() > 0) {
                         timeAdapter.notifyItemInserted(countedTimesList.size() - 1);
                         ((LinearLayoutManager) rvCountTime.getLayoutManager()).scrollToPositionWithOffset(countedTimesList.size() - 1, 0);
                     }
-//                    intervalTimeCount = timeCount;
                     intervalTimeCount = 0;
+                    break;
+                case 3:
+                    countedTimesList.clear();
+                    timeAdapter.notifyDataSetChanged();
+                    btStart.setText("开始");
+                    btCount.setEnabled(false);
+                    btReset.setEnabled(false);
+                    isStoped = false;
+                    tvTime.setText("00:00.00");
+                    tvIntervalTime.setText("00:00.00");
                     break;
                 default:
                     break;
@@ -229,7 +206,7 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
         }
     };
 
-    private class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.ViewHolder> {
+    public static class TimeAdapter extends RecyclerView.Adapter<TimeAdapter.ViewHolder> {
         private Context context;
         private List<TimeCountMDL> times;
 
@@ -315,7 +292,7 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
      * @param timeCount 总的计数
      * @return “分钟：秒：毫秒”
      */
-    private String getStringTime(int timeCount) {
+    public static String getStringTime(int timeCount) {
         int mSecond = timeCount % 100;// 计算毫秒
         int second = (timeCount / 100) % 60;//计算秒
         int minute = timeCount / 6000;//计算分钟
@@ -360,6 +337,14 @@ public class CountTimeActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (myTask != null){
+            myTask.cancel();
+            myTask = null;
+        }
     }
 }

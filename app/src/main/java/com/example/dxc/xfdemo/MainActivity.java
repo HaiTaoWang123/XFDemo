@@ -34,12 +34,16 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.bt_handler).setOnClickListener(this);
         findViewById(R.id.bt_timer).setOnClickListener(this);
         findViewById(R.id.bt_touch).setOnClickListener(this);
+        findViewById(R.id.bt_setting).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
+            case R.id.bt_setting:
+                intent = new Intent(this, SelectLoginStyleActivity.class);
+                break;
             case R.id.bt_yysb:
                 intent = new Intent(this, RecognizerActivity.class);
                 break;

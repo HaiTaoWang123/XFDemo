@@ -113,6 +113,8 @@ public class FingerVerifierActivity extends BaseActivity {
 
         if (!flag){//如果为登录方式初始化，button设置为影藏
             btFingerVerifier.setVisibility(View.GONE);
+            setBackVisible(false,"");
+            setTitle("指纹识别登录");
         }
         btFingerVerifier.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -27,6 +27,7 @@ import com.example.dxc.xfdemo.common.BaseActivity;
 public class SelectLoginStyleActivity extends BaseActivity {
     private int checkedSytle = 0;
     private Context context;
+    private final int PERMISSION_REQUEST = 0x00;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +47,18 @@ public class SelectLoginStyleActivity extends BaseActivity {
         }
         rbId.setChecked(true);
         checkedSytle = 1;
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            ActivityCompat.requestPermissions(this,new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.USE_FINGERPRINT,
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.INTERNET,
+                    Manifest.permission.CALL_PHONE,
+                    Manifest.permission.SEND_SMS},PERMISSION_REQUEST);
+        }
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

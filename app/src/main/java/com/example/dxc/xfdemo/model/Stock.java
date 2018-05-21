@@ -30,9 +30,6 @@ public class Stock {
     private String nmc;//流通市值（单位：万）
     private String turnoverratio;//换手率
 
-    public Stock() {
-    }
-
     public Stock(String symbol, String code, String name, String trade, String pricechange, String changepercent, String buy, String sell, String settlement, String open, String high, String low, String volume, String amount, String ticktime, String per, String pb, String mktcap, String nmc, String turnoverratio) {
         this.symbol = symbol;
         this.code = code;
