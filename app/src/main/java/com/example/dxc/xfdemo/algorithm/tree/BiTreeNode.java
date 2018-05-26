@@ -8,8 +8,8 @@ package com.example.dxc.xfdemo.algorithm.tree;
 public class BiTreeNode {
     public Object data;//结点的数据域
     public BiTreeNode lchild, rchild;//左右孩子域
-    //构造一个空结点
 
+    //构造一个空结点
     public BiTreeNode() {
         this(null);
     }

@@ -16,8 +16,6 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
 //        btSpeechRecognizer = findViewById(R.id.bt_yysb) ;
 //        btSpeechSynthesizer = findViewById(R.id.bt_yybb) ;
 //        btFaceRequest = findViewById(R.id.bt_face) ;
