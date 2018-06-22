@@ -107,7 +107,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 intent = new Intent(this, CountTimeActivity.class);
                 break;
                 case R.id.bt_touch:
-                intent = new Intent(this, EventDispatchTestActivity.class);
+//                intent = new Intent(this, EventDispatchTestActivity.class);
+                intent = new Intent(this, EventDispatchTestActivity_1.class);
                 break;
             default:
                 break;

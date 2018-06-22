@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:layout_margin="10dp">
+
+        <com.example.dxc.xfdemo.widget.MyLinerLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:id="@+id/ll_activity">
+
+            <com.example.dxc.xfdemo.widget.MyLinerLayout
+                android:id="@+id/ll_test1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.example.dxc.xfdemo.widget.MyTextView
+                    android:id="@+id/tv_test1"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="20dp"
+                    android:text="tv_test1"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:background="@color/colorAccent" />
+            </com.example.dxc.xfdemo.widget.MyLinerLayout>
+
+            <com.example.dxc.xfdemo.widget.MyLinerLayout
+                android:id="@+id/ll_test2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <com.example.dxc.xfdemo.widget.MyTextView
+                    android:id="@+id/tv_test2"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="20dp"
+                    android:text="tv_test2"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:background="@color/colorAccent" />
+            </com.example.dxc.xfdemo.widget.MyLinerLayout>
+
+            <com.example.dxc.xfdemo.widget.MyLinerLayout
+                android:id="@+id/ll_test3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:gravity="center"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical">
+
+                <com.example.dxc.xfdemo.widget.MyTextView
+                    android:id="@+id/tv_test3"
+                    android:layout_width="200dp"
+                    android:layout_height="100dp"
+                    android:layout_margin="20dp"
+                    android:text="tv_test3"
+                    android:gravity="center"
+                    android:textSize="20sp"
+                    android:background="@color/colorAccent" />
+            </com.example.dxc.xfdemo.widget.MyLinerLayout>
+
+        </com.example.dxc.xfdemo.widget.MyLinerLayout>
+    </ScrollView>
+</LinearLayout>
