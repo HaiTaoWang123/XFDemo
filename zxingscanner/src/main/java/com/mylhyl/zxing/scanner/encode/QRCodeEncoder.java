@@ -328,7 +328,7 @@ final class QRCodeEncoder {
         float left = (bgWidth - fgWidth) / 2;
         float top = (bgHeight - fgHeight) / 2;
         canvas.drawBitmap(qrBitmap, left, top, null);
-        canvas.save(Canvas.ALL_SAVE_FLAG);
+        canvas.save();
         canvas.restore();
         return bitmap;
     }

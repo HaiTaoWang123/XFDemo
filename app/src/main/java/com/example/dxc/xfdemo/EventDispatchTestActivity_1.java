@@ -6,9 +6,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.dxc.xfdemo.apt.BaseDaoFactory;
-import com.example.dxc.xfdemo.apt.IBaseDao;
-import com.example.dxc.xfdemo.apt.User;
 import com.example.dxc.xfdemo.common.BaseActivity;
 import com.example.dxc.xfdemo.widget.MyLinerLayout;
 import com.example.dxc.xfdemo.widget.MyTextView;
@@ -58,8 +55,8 @@ public class EventDispatchTestActivity_1 extends BaseActivity implements View.On
         activity_ll.setDispatchTouchable(true);
         activity_ll.setInterceptable(true);
 
-        IBaseDao sqLiteDatabase = BaseDaoFactory.getInstance().getBaseDao(User.class);
-        sqLiteDatabase.insert(new User());
+//        IBaseDao sqLiteDatabase = BaseDaoFactory.getInstance().getBaseDao(User.class);
+//        sqLiteDatabase.insert(new User());
     }
 
 

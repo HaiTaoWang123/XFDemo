@@ -30,7 +30,6 @@
 
         <Spinner
             android:id="@+id/recognizer_spinner"
-            style="@style/android:Theme.Holo.Light"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
@@ -117,7 +116,6 @@
 
         <CheckBox
             android:id="@+id/cb_symbole"
-            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -142,7 +140,6 @@
 
         <CheckBox
             android:id="@+id/cb_dialog"
-            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -167,7 +164,6 @@
 
         <CheckBox
             android:id="@+id/cb_translation"
-            style="@style/Widget.AppCompat.CompoundButton.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

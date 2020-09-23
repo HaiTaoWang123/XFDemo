@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/XFDemo.iml" filepath="$PROJECT_DIR$/XFDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/filedownloadtest/filedownloadtest.iml" filepath="$PROJECT_DIR$/filedownloadtest/filedownloadtest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/zxingscanner/zxingscanner.iml" filepath="$PROJECT_DIR$/zxingscanner/zxingscanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/XFDemo.iml" filepath="$PROJECT_DIR$/XFDemo.iml" group="XFDemo" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="XFDemo/app" />
+      <module fileurl="file://$PROJECT_DIR$/filedownloadtest/filedownloadtest.iml" filepath="$PROJECT_DIR$/filedownloadtest/filedownloadtest.iml" group="XFDemo/filedownloadtest" />
+      <module fileurl="file://$PROJECT_DIR$/zxingscanner/zxingscanner.iml" filepath="$PROJECT_DIR$/zxingscanner/zxingscanner.iml" group="XFDemo/zxingscanner" />
     </modules>
   </component>
 </project>

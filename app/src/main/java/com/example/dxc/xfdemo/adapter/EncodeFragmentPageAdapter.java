@@ -1,12 +1,13 @@
 package com.example.dxc.xfdemo.adapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.dxc.xfdemo.fragment.EncodeBaseFragment;
 
 import java.util.List;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 /**
  * Created by haitaow on 1/11/2018-11:12 AM.
@@ -14,7 +15,7 @@ import java.util.List;
  * version 1.0
  */
 
-public class EncodeFragmentPageAdapter extends FragmentPagerAdapter{
+public class EncodeFragmentPageAdapter extends FragmentPagerAdapter {
     private List<EncodeBaseFragment> fragmentList;
 
 

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -12,6 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.dxc.xfdemo.R;
+
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * Created by wahaitao on 12/25/2017.

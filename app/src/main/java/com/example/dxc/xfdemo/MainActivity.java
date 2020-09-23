@@ -5,9 +5,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
+
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 public class MainActivity extends Activity implements View.OnClickListener {
 //    private Button btSpeechRecognizer,btSpeechSynthesizer,btFaceRequest,btSpeakerVerifier;
@@ -33,6 +34,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.bt_timer).setOnClickListener(this);
         findViewById(R.id.bt_touch).setOnClickListener(this);
         findViewById(R.id.bt_setting).setOnClickListener(this);
+        findViewById(R.id.bt_springboot).setOnClickListener(this);
     }
 
     @Override
@@ -106,9 +108,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.bt_timer:
                 intent = new Intent(this, CountTimeActivity.class);
                 break;
-                case R.id.bt_touch:
+            case R.id.bt_touch:
 //                intent = new Intent(this, EventDispatchTestActivity.class);
                 intent = new Intent(this, EventDispatchTestActivity_1.class);
+                break;
+            case R.id.bt_springboot:
+                intent = new Intent(this, SpringBootActivity.class);
                 break;
             default:
                 break;

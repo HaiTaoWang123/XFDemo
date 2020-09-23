@@ -1,10 +1,9 @@
 package com.example.dxc.xfdemo;
 
+import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.widget.HorizontalScrollView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -23,6 +22,9 @@ import com.example.dxc.xfdemo.fragment.WifiFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Created by haitaow on 1/10/2018-5:09 PM.

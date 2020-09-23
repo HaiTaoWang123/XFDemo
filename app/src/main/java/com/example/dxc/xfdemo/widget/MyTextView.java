@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.widget.TextView;
 
 /**
  * @Class:
@@ -12,7 +13,7 @@ import android.view.MotionEvent;
  * @Date: 6/5/2018-4:05 PM.
  * @Version 1.0
  */
-public class MyTextView extends android.support.v7.widget.AppCompatTextView {
+public class MyTextView extends TextView {
     private boolean isTouchable = false;
     private boolean isDispatchable = false;
 

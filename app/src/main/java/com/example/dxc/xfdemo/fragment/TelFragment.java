@@ -63,7 +63,7 @@ public class TelFragment extends EncodeBaseFragment {
     public void encodingClickListener() {
         if (!etTel.getText().toString().equals("")) {
             Bitmap bitmap = new QREncode.Builder(context)
-                    .setColor(getResources().getColor(R.color.colorPrimary))//二维码颜色
+                    .setColor(context.getResources().getColor(R.color.colorPrimary))//二维码颜色
                     .setColors(0xFF0094FF, 0xFFFED545, 0xFF5ACF00, 0xFFFF4081)//二维码彩色
                     .setMargin(0)//二维码边框
                     //二维码类型
